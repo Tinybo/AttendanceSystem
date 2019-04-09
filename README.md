@@ -1,5 +1,5 @@
-# antdesign-react-redux-router
-一个继承了AntDesign、React、Redux、React-router的前端脚手架。
+# 项目介绍
+该项目是基于 React 的校园考勤管理系统，为毕业设计作品，其集成了AntDesign、React、Redux、React-router。
 
 # 使用方式
 1. 安装依赖文件
