@@ -1,0 +1,47 @@
+@import '../../../common/colors.scss';
+
+.loginContainer {
+    display: flex;
+    flex-direction: column;
+
+    input {
+        width: 88%;
+        height: 45px;
+        margin-bottom: 34px;
+        margin-left: 6%;
+        border-radius: 38px;
+        outline: none;
+        color: white;
+        border: 2px solid white;
+        text-indent: 1em;
+        background: rgba(255, 255, 255, 0);
+    }
+
+    input::-webkit-input-placeholder {
+       color: white;
+    }
+
+    .loginBtn {
+        width: 88%;
+        height: 45px;
+        background: white;
+        color: $primary;
+        border-radius: 38px;
+        font-size: 16px;
+        font-weight: bold;
+        border: 2px solid white;
+        margin: 15px 6% 67px;
+        outline: none;
+    }
+
+    .loginBtn:active {
+        background: $background;
+    }
+
+    span {
+        font-size: 15px;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+    }
+}
