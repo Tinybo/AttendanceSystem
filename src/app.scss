@@ -1,56 +1,6 @@
 @import '~antd/dist/antd.css';
 
-.App {
-  text-align: center;
-
-  .App-header {
-    background-color: #282c34;
-    min-height: 20vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-    padding-top: 20px;
-
-    .App-logo {
-      animation: App-logo-spin infinite 20s linear;
-      height: 10vmin;
-    }
-
-    .App-link {
-      color: #61dafb;
-    }
-  }
-
-  main {
-    text-align: center;
-
-    nav a {
-      margin: 30px;
-      display: inline-block;
-    }
-    
-    nav a:active {
-      color: red;
-    }
-
-    .mainContainer {
-      border: 1px solid gray;
-      width: 80%;
-      min-height: 200px;
-      margin: 0px auto;
-    }
-  }
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
+.App, .mainContainer {
+  width: 100%;
+  height: 100%;
 }

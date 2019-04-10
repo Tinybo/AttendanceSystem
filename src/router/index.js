@@ -16,10 +16,10 @@ export const routes = [
     {
         path: '/',
         component: App,
-        indexRoute: { component: Home },
+        indexRoute: { component: Auth },
         childRoutes: [
-            { path: '', component: Home },
-            { path: '/home', component: Home },
+            { path: '', component: Auth },
+            { path: '/auth', component: Auth },
             { path: '/music', component: Music },
             {
                 path: '/about',

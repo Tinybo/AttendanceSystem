@@ -20,7 +20,7 @@ class Music extends Component {
     render () {
         return (
             <div>
-                Music
+                <span>music</span>
             </div>
         )
     }
