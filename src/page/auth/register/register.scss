@@ -1,0 +1,67 @@
+@import '../../../common/colors.scss';
+
+.registerContainer {
+    display: flex;
+    flex-direction: column;
+
+    input {
+        width: 88%;
+        height: 45px;
+        margin-bottom: 34px;
+        margin-left: 6%;
+        border-radius: 38px;
+        outline: none;
+        color: white;
+        border: 2px solid white;
+        text-indent: 1em;
+        background: rgba(255, 255, 255, 0);
+    }
+
+    input::-webkit-input-placeholder {
+       color: white;
+    }
+
+    .chooseBtn {
+        width: 88%;
+        height: 45px;
+        margin: 0 6% 34px;
+        border-radius: 38px;
+        color: white;
+        background: rgba(255, 255, 255, 0);
+        border: 2px solid white;
+
+        .text {
+            float: left;
+        }
+        
+        .icon {
+            float: right;
+            margin-top: 5px;
+        }
+    }
+
+    .registerBtn {
+        width: 88%;
+        height: 45px;
+        background: white;
+        color: $primary;
+        border-radius: 38px;
+        font-size: 16px;
+        font-weight: bold;
+        border: 2px solid white;
+        margin: 15px 6% 34px;
+        outline: none;
+    }
+
+    .registerBtn:active {
+        background: $background;
+    }
+
+    .changeBtn {
+        font-size: 15px;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 24px;
+    }
+}
