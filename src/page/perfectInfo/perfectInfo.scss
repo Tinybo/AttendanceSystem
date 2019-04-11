@@ -1,0 +1,68 @@
+@import '../../common/colors.scss';
+
+.perfectContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    header {
+        height: 50px;
+        width: 100%;
+        text-align: center;
+        color: white;
+        background: $primary;
+        font-size: 16px;
+        font-weight: bold;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        .title {
+            margin-left: 18px;
+        }
+    }
+
+    main {
+        flex:1;
+        overflow:auto;
+        -webkit-overflow-scrolling:touch;
+        margin-top: 20px;
+
+        .formPerfect {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ant-form-item {
+            width: 90%;
+            margin-right: 0;
+            margin-bottom: 15px;
+        }
+
+        .ant-input {
+            height: 35px;
+        }
+
+        .submitBtn {
+            width: 100%;
+            height: 40px;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            background: $primary;
+            border: 1px solid $primary;
+            outline: none;
+            margin-top: 24px;
+        }
+    }
+
+    footer {
+        width: 100%;
+        height: 50px;
+    }
+}
