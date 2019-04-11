@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import './login.scss';
 
-
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from './action';
@@ -28,7 +27,7 @@ class Login extends Component {
      * @date 2019 04 10
      */
     saveValue = (value, e) => {
-        if (value == 'account') {
+        if (value === 'account') {
             this.setState({account: this.refs.account.value});
         } else {
             this.setState({password: this.refs.password.value});
@@ -44,7 +43,7 @@ class Login extends Component {
         const { actions } = this.props;
 
         // 校验表单数据合法性
-        if (this.state.account == '' || this.state.password == '') {
+        if (this.state.account === '' || this.state.password === '') {
             toast('warning', '账号或密码不能为空。');
             return;
         }
@@ -99,7 +98,7 @@ class Login extends Component {
                 // 登录结果提示信息
                 const { phone, stu_name } = this.props.login;
                 if (phone) {
-                    toast('success', stu_name + ', 欢迎回来！');
+                    toast('success', '欢迎回来！');
                 } else {
                     toast('error', '该账户不存在！');
                 }
@@ -109,7 +108,7 @@ class Login extends Component {
 
     render() {
         return (
-            <div className="loginContainer animated zoomInUp">
+            <div className="loginContainer animated jackInTheBox">
                 <input
                     type="text"
                     ref="account"

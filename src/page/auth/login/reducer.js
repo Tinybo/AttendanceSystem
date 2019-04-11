@@ -6,9 +6,7 @@ const initData = {
     isLoginFinish: false
 }
 
-// export default createReducer(initData, { 'ADD': add })
-
-export default function home (state = initData, action) {
+export default function login (state = initData, action) {
     switch (action.type) {
         case actions.LOGIN:
             return Object.assign({}, state, action.data);
