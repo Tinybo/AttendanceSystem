@@ -4,6 +4,34 @@
     display: flex;
     flex-direction: column;
 
+    .ant-select {
+        width: 88%;
+        margin-left: 6%;
+        margin-bottom: 34px;
+    }
+
+    .ant-select-selection--single {
+        height: 45px;
+        border-radius: 38px;
+        background: rgba(255, 255, 255, 0);
+        border: 2px solid white;
+        outline: none;
+    }
+
+    .ant-select-selection__rendered {
+        line-height: 40px; 
+        color: white; 
+        text-indent: 5px;
+    }
+
+    .ant-select-selection__placeholder {
+        color: white;
+    }
+
+    .ant-select-arrow {
+        color: white;
+    }
+
     input {
         width: 88%;
         height: 45px;

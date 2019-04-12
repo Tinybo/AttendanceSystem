@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import './register.scss';
-import { Menu, Dropdown, Button, Icon, message } from 'antd';
+import {  Button, Icon, Select } from 'antd';
 import {toast} from '../../../common/utils/toast'; // 全局提示
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from './action';
+
+const Option = Select.Option;
 
 class Register extends Component {
     constructor () {
@@ -24,21 +26,14 @@ class Register extends Component {
     }
 
     /**
-     * 选择注册的用户类型。
+     * 设置用户类型。
      * @author Tinybo
-     * @date 2019 04 10
+     * @date 2019 04 12
      */
-    chooseType = (type) => {
-        const users = {
-            '1': '学生',
-            '2': '教师',
-            '3': '学工办',
-            '4': '学院领导'
-        };
-
+    handleChange = (value) => {
         this.setState({
-            userType: users[type.key]
-        })
+            userType: value
+        });
     }
 
     /**
@@ -74,22 +69,13 @@ class Register extends Component {
             return;
         }
 
-        // 处理用户类型
-        let tempType = {
-            '学生': 1,
-            '教师': 2,
-            '学工办': 3,
-            '学院领导': 4
-        }
-
-        this.logging(); // 设置登录状态
-        console.log(browserHistory);
+        this.logging(); // 设置注册状态
 
         // 正式进入登录操作
         actions.register({
             phone: this.state.account,
             password: this.state.password,
-            type: tempType[this.state.userType]
+            type: this.state.userType
         });
     }
 
@@ -142,23 +128,19 @@ class Register extends Component {
     }
 
     render () {
-        const userType = (
-            <Menu onClick={ this.chooseType }>
-              <Menu.Item key="1"><Icon type="user" />学生</Menu.Item>
-              <Menu.Item key="2"><Icon type="user" />教师</Menu.Item>
-              <Menu.Item key="3"><Icon type="user" />学工办</Menu.Item>
-              <Menu.Item key="4"><Icon type="user" />学院领导</Menu.Item>
-            </Menu>
-        );
-
         return (
             <div className="registerContainer animated jackInTheBox">
-                <Dropdown overlay={ userType }>
-                    <Button className="chooseBtn">
-                        <span className="text">{ this.state.userType }</span>
-                        <Icon className="icon" type="down" />
-                    </Button>
-                </Dropdown>
+                <Select
+                    placeholder="用户类型"
+                    optionFilterProp="children"
+                    onChange={this.handleChange}
+                    filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+                >
+                    <Option value="1">学生</Option>
+                    <Option value="2">教师</Option>
+                    <Option value="3">学工办</Option>
+                    <Option value="4">学院领导</Option>
+                </Select>
                 <input type="text" ref="account" className="account" placeholder="手机号" defaultValue={ this.state.account } onChange={ this.saveValue.bind(this, 'account') } />
                 <input type="text" ref="password" className="password" placeholder="密码" defaultValue={ this.state.password } onChange={ this.saveValue.bind(this, 'password') } />
                 <input type="text" ref="rePassword" className="password" placeholder="确认密码" defaultValue={ this.state. rePassword } onChange={ this.saveValue.bind(this, 'rePassword') } />

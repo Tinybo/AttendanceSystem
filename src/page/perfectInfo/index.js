@@ -4,6 +4,10 @@ import Back from '../../components/back';
 import BottomButton from '../../components/bottomButton';
 import { Form, Input, Button } from 'antd';
 
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as actions from './action';
+
 /**
  * 模版组件。
  * @author Tinybo
@@ -16,6 +20,7 @@ class PerfectInfo extends Component {
         this.state = {
             fields: {
                 name: { value: '' },        // 姓名
+                num: { value: '' },         // 学号
                 college: { value: '' },     // 学校
                 department: { value: '' },  // 系别
                 major: { value: '' },       // 专业
@@ -28,7 +33,7 @@ class PerfectInfo extends Component {
             }
         };
 
-        this.validate = '';
+        this.validate = '';                 // 表单校验函数
     }
 
     /**
@@ -44,6 +49,7 @@ class PerfectInfo extends Component {
         mapPropsToFields(props) {
         return {
             name: Form.createFormField({ ...props.name, value: props.name.value,}),
+            num: Form.createFormField({ ...props.num, value: props.num.value,}),
             college: Form.createFormField({ ...props.college, value: props.college.value,}),
             department: Form.createFormField({ ...props.department, value: props.department.value,}),
             major: Form.createFormField({ ...props.major, value: props.major.value,}),
@@ -68,6 +74,11 @@ class PerfectInfo extends Component {
                 <Form.Item label="姓名">
                 { getFieldDecorator('name', {
                     rules: [{ required: true, message: '姓名为必填项！' }],
+                })(<Input />) }
+                </Form.Item>
+                <Form.Item label="学号">
+                { getFieldDecorator('num', {
+                    rules: [{ required: true, message: '学号为必填项！' }],
                 })(<Input />) }
                 </Form.Item>
                 <Form.Item label="大学">
@@ -145,9 +156,28 @@ class PerfectInfo extends Component {
      * @date 2019 04 11
      */
     submit = () => {
+        const { actions } = this.props;
         this.validate((err, values) => {
             if (!err) {
                 console.log('完善的数据可以提交了：', this.state.fields);
+                let oriData = this.state.fields;
+                let userData = this.props.login;    // 登录后返回的用户信息
+
+                actions.perfectInfo({
+                    stu_id: userData.stu_id,
+                    stu_name: oriData.name.value,
+                    num: oriData.num.value,
+                    college: oriData.college.value,
+                    deparment: oriData.department.value,
+                    major: oriData.major.value,
+                    grade:  oriData.grade.value,
+                    class: oriData.class.value,
+                    age: oriData.age.value,
+                    position: oriData.position.value,
+                    phone: userData.phone,
+                    qq: oriData.qq.value,
+                    type: userData.type
+                });
             } else {
                 console.log('数据不合法！');
             }
@@ -177,4 +207,9 @@ class PerfectInfo extends Component {
     }
 }
 
-export default PerfectInfo;
+export default connect(
+    (state) => state, 
+    (dispatch) => ({
+        actions: bindActionCreators(actions, dispatch)
+    })
+)(PerfectInfo);

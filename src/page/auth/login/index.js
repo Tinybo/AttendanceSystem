@@ -1,19 +1,23 @@
 import React, {Component} from 'react';
 import './login.scss';
+import { hashHistory } from 'react-router';
+import { Select } from 'antd';
+import {toast} from '../../../common/utils/toast'; // 全局提示
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from './action';
 
-import {toast} from '../../../common/utils/toast'; // 全局提示
+const Option = Select.Option;
 
 class Login extends Component {
     constructor() {
         super();
 
         this.state = {
-            account: '', // 账号
-            password: '', // 密码
+            userType: '',       // 用户类型
+            account: '',        // 账号
+            password: '',       // 密码
             loginBtnText: '登 录',
             canPress: false
         }
@@ -42,9 +46,15 @@ class Login extends Component {
     login = () => {
         const { actions } = this.props;
 
+        // 检查用户类型是否已填
+        if (this.state.userType === '') {
+            toast('warning', '请选择登录的用户类型！');
+            return;
+        }
+
         // 校验表单数据合法性
         if (this.state.account === '' || this.state.password === '') {
-            toast('warning', '账号或密码不能为空。');
+            toast('warning', '账号或密码不能为空！');
             return;
         }
 
@@ -53,6 +63,7 @@ class Login extends Component {
 
         // 正式进入登录操作
         actions.login({
+            type: this.state.userType,
             phone: this.state.account,
             password: this.state.password
         });
@@ -96,9 +107,15 @@ class Login extends Component {
                 });
 
                 // 登录结果提示信息
-                const { phone, stu_name } = this.props.login;
+                const { phone, stu_name, type, isFinish } = this.props.login;
                 if (phone) {
-                    toast('success', '欢迎回来！');
+                    if (isFinish == 1) {
+                        toast('primary', '请先完善信息！');
+                        hashHistory.push('/perfectInfo');
+                    } else if (isFinish == 2) {
+                        toast('success', '欢迎回来！');
+                        hashHistory.push('/home');
+                    }
                 } else {
                     toast('error', '该账户不存在！');
                 }
@@ -106,9 +123,31 @@ class Login extends Component {
         }, 700);
     }
 
+    /**
+     * 设置用户类型。
+     * @author Tinybo
+     * @date 2019 04 12
+     */
+    handleChange = (value) => {
+        this.setState({
+            userType: value
+        });
+    }
+
     render() {
         return (
             <div className="loginContainer animated jackInTheBox">
+                <Select
+                    placeholder="用户类型"
+                    optionFilterProp="children"
+                    onChange={this.handleChange}
+                    filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+                >
+                    <Option value="1">学生</Option>
+                    <Option value="2">教师</Option>
+                    <Option value="3">学工办</Option>
+                    <Option value="4">学院领导</Option>
+                </Select>
                 <input
                     type="text"
                     ref="account"
