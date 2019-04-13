@@ -15,7 +15,7 @@ export function perfectInfo (data) {
         // 调用后台登录接口。
         console.log('这就是完善信息的数据:', data);
         $.post({
-            url: 'http://localhost:3001/perfectInfo',
+            url: 'http://10.21.13.26:3001/perfectInfo',
             dataType: 'json',
             data: data,
             success: (res) => {

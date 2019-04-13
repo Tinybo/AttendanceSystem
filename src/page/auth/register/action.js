@@ -14,7 +14,7 @@ export function register (data) {
     return (dispatch, getState) => {
         // 调用后台登录接口。
         $.post({
-            url: 'http://localhost:3001/register',
+            url: 'http://10.21.13.26:3001/register',
             dataType: 'json',
             header: 'Content-type: application/json',
             data: data,

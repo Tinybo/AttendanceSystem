@@ -70,7 +70,6 @@ class Login extends Component {
 
         // 显示登录提示信息
         console.log(this.props.login);
-        
     }
 
     /**
@@ -110,7 +109,7 @@ class Login extends Component {
                 const { phone, stu_name, type, isFinish } = this.props.login;
                 if (phone) {
                     if (isFinish == 1) {
-                        toast('primary', '请先完善信息！');
+                        toast('info', '请先完善信息！');
                         hashHistory.push('/perfectInfo');
                     } else if (isFinish == 2) {
                         toast('success', '欢迎回来！');

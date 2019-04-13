@@ -112,17 +112,13 @@ class Register extends Component {
                     canPress: false
                 });
 
-                // 跳转至登录界面
-                this.props.shiftPage('login');
-                console.log('注册终于结束了。');
-
                 // 登录结果提示信息
-                /* const { phone, stu_name } = this.props.register;
+                const { phone, stu_name } = this.props.register;
                 if (phone) {
-                    toast('success', '欢迎回来！');
-                } else {
-                    toast('error', '该账户不存在！');
-                } */
+                    // 跳转至登录界面
+                    this.props.shiftPage('login');
+                    console.log('注册终于结束了。');
+                }
             }
         }, 100);
     }

@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import './auth.scss';
 import Login from './login';
 import Register from './register';
-import { Spin, Alert } from 'antd';
-
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as authActions from '../../actions/auth';
 
 /**
  * 登录·注册页面。
@@ -70,9 +65,4 @@ class Auth extends Component {
     }
 }
 
-export default connect(
-    (state) => state.name,
-    (dispatch) => ({
-        actions: bindActionCreators(authActions, dispatch)
-    })
-)(Auth);
+export default Auth;
