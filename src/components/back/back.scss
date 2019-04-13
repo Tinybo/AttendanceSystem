@@ -2,12 +2,14 @@
 
 .backContainer {
     display: flex;
+    flex-direction: row;
+    align-items: center;
     height: 20px;
     line-height: 20px;
     font-size: 14px;
     margin: auto 18px;
 
     span {
-        margin-left: 4px; 
+        margin-left: 4px;
     }
 }

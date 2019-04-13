@@ -1,0 +1,10 @@
+@import '../../common/colors.scss';
+
+.iconBtnContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 20px;
+    font-size: 14px;
+    margin: auto 18px;
+}
