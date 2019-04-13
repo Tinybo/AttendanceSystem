@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './template.scss';
+import './middle.scss';
 
 
 /**
@@ -7,7 +7,7 @@ import './template.scss';
  * @author Tinybo
  * @date 2018 12 11
  */
-class Template extends Component {
+class Middle extends Component {
     constructor () {
         super();
     }
@@ -15,9 +15,10 @@ class Template extends Component {
     render () {
         return (
             <div className="container">
+                主页
             </div>
         )
     }
 }
 
-export default Template;
+export default Middle;

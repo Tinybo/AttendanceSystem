@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './template.scss';
+import './left.scss';
 
 
 /**
@@ -7,17 +7,18 @@ import './template.scss';
  * @author Tinybo
  * @date 2018 12 11
  */
-class Template extends Component {
+class Left extends Component {
     constructor () {
         super();
     }
 
     render () {
         return (
-            <div className="container">
+            <div className="leftContainer">
+                消息
             </div>
         )
     }
 }
 
-export default Template;
+export default Left;

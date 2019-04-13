@@ -7,7 +7,7 @@ export const routes = [
     {
         path: '/',
         component: App,
-        indexRoute: { component: Auth },
+        indexRoute: { component: Home },
         childRoutes: [
             { path: '', component: Auth },
             { path: '/auth', component: Auth },

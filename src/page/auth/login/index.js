@@ -112,7 +112,8 @@ class Login extends Component {
                         toast('info', '请先完善信息！');
                         hashHistory.push('/perfectInfo');
                     } else if (isFinish == 2) {
-                        toast('success', '欢迎回来！');
+                        let userName = localStorage.getItem('userName');
+                        toast('success', userName + ', 欢迎回来！');
                         hashHistory.push('/home');
                     }
                 } else {

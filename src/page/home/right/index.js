@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './template.scss';
+import './right.scss';
 
 
 /**
@@ -7,17 +7,18 @@ import './template.scss';
  * @author Tinybo
  * @date 2018 12 11
  */
-class Template extends Component {
+class Right extends Component {
     constructor () {
         super();
     }
 
     render () {
         return (
-            <div className="container">
+            <div className="rightContainer">
+                个人中心
             </div>
         )
     }
 }
 
-export default Template;
+export default Right;
