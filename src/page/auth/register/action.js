@@ -1,5 +1,7 @@
 import $ from 'jquery';
+import { hashHistory } from 'react-router';
 import { toast } from '../../../common/utils/toast'; // 全局提示
+import { host } from '../../../common/hosts';
 
 export const REGISTER = "REGISTER";
 export const RESET_BTN = "RESET_BTN";
@@ -14,7 +16,7 @@ export function register (data) {
     return (dispatch, getState) => {
         // 调用后台登录接口。
         $.post({
-            url: 'http://10.21.13.26:3001/register',
+            url: host + '/register',
             dataType: 'json',
             header: 'Content-type: application/json',
             data: data,
@@ -23,6 +25,7 @@ export function register (data) {
                 if (res.code != '404') {
                     let result = res.data;
                     toast('success', '注册成功！');
+                    hashHistory.push('/');
                     dispatch({
                         type: REGISTER,
                         data: {

@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import { host } from '../../../common/hosts';
 
 export const LOGIN = "LOGIN";
 export const RESET_BTN = "RESET_BTN";
@@ -13,7 +14,7 @@ export function login (data) {
     return (dispatch, getState) => {
         // 调用后台登录接口。
         $.get({
-            url: 'http://10.21.13.26:3001/login',
+            url: host + '/login',
             dataType: 'json',
             data: data,
             success: (res) => {

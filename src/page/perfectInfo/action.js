@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import { hashHistory } from 'react-router';
 import { toast } from '../../common/utils/toast'; // 全局提示
+import { host } from '../../common/hosts';
 
 export const PERFECT_INFO = "PERFECT_INFO";
 
@@ -15,7 +16,7 @@ export function perfectInfo (data) {
         // 调用后台登录接口。
         console.log('这就是完善信息的数据:', data);
         $.post({
-            url: 'http://10.21.13.26:3001/perfectInfo',
+            url: host + '/perfectInfo',
             dataType: 'json',
             data: data,
             success: (res) => {
