@@ -1,19 +1,24 @@
 import React, { Component } from 'react';
-import './perfectInfo.scss';
-import Back from '../../components/back';
-import BottomButton from '../../components/bottomButton';
-import { Form, Input } from 'antd';
+import './leave.scss';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from './action';
+import { hashHistory } from 'react-router';
+
+import Header from '../../components/header';
+import NavLabel from '../../components/navLabel';
+import Back from '../../components/back';
+import BottomButton from '../../components/bottomButton';
+import { Form, Input, DatePicker } from 'antd';
+const { TextArea } = Input;
 
 /**
- * 模版组件。
+ * 填写请假条。
  * @author Tinybo
  * @date 2018 12 11
  */
-class PerfectInfo extends Component {
+class Leave extends Component {
     constructor () {
         super();
 
@@ -31,6 +36,9 @@ class PerfectInfo extends Component {
                 position: { value: '' },    // 职务
                 phone: { value: '' },       // 手机号
                 qq: { value: '' },          // QQ
+                reason: { value: '' },      // 请假事由
+                startTime: { value: '' },   // 开始时间
+                endTime: { value: '' },     // 结束时间
             }
         };
 
@@ -40,9 +48,38 @@ class PerfectInfo extends Component {
     // 给表单赋默认值
     componentWillMount () {
         const oriData = this.props.login;
+
+        // 获取用户的登录信息
+        let type = localStorage.getItem('type');
+        let userId = localStorage.getItem('userId');
+        let userName = localStorage.getItem('userName');
+        let phone = localStorage.getItem('phone');
+        let num = localStorage.getItem('num');
+        let college = localStorage.getItem('college');
+        let department = localStorage.getItem('department');
+        let position = localStorage.getItem('position');
+        // 保存学生特有的信息
+        let major = localStorage.getItem('major') || '';
+        let grade = localStorage.getItem('grade') || '';
+        let Class = localStorage.getItem('class') || '';
+        let qq = localStorage.getItem('qq') || '';
+        let sex = localStorage.getItem('sex') || '';
+        let age = localStorage.getItem('age') || '';
+
         this.setState({
             fields: Object.assign(this.state.fields, {
-                phone: { value: oriData.phone }
+                name: { value: userName },          // 姓名
+                num: { value: num },                // 学号
+                college: { value: college },        // 学校
+                department: { value: department },  // 系别
+                major: { value: major },            // 专业
+                grade: { value: grade },            // 年级
+                class: { value: Class },            // 班级
+                age: { value: age },                // 年龄
+                sex: { value: sex },                // 性别
+                position: { value: position },      // 职务
+                phone: { value: phone },            // 手机号
+                qq: { value: qq },                  // QQ
             })
         });
     }
@@ -73,6 +110,9 @@ class PerfectInfo extends Component {
                     position: Form.createFormField({ ...props.position, value: props.position.value,}),
                     phone: Form.createFormField({ ...props.phone, value: props.phone.value,}),
                     qq: Form.createFormField({ ...props.qq, value: props.qq.value,}),
+                    reason: Form.createFormField({ ...props.reason, value: props.reason.value,}),
+                    startTime: Form.createFormField({ ...props.startTime, value: props.startTime.value,}),
+                    endTime: Form.createFormField({ ...props.endTime, value: props.endTime.value,}),
                 }; 
             }
             // 教师、学工办、学院领导
@@ -85,6 +125,9 @@ class PerfectInfo extends Component {
                 sex: Form.createFormField({ ...props.sex, value: props.sex.value,}),
                 position: Form.createFormField({ ...props.position, value: props.position.value,}),
                 phone: Form.createFormField({ ...props.phone, value: props.phone.value,}),
+                reason: Form.createFormField({ ...props.reason, value: props.reason.value,}),
+                startTime: Form.createFormField({ ...props.startTime, value: props.startTime.value,}),
+                endTime: Form.createFormField({ ...props.endTime, value: props.endTime.value,}),
             };
         },
         onValuesChange(_, values) {
@@ -168,6 +211,21 @@ class PerfectInfo extends Component {
                         rules: [{ required: type == 1 ? true : false, message: 'QQ为必填项！' }],
                     })(<Input />) }
                 </Form.Item>
+                <Form.Item label="开始时间">
+                    { getFieldDecorator('startTime', {
+                        rules: [{ required: true, message: '开始时间为必填项！' }],
+                    })(<DatePicker />) }
+                </Form.Item>
+                <Form.Item label="结束时间">
+                    { getFieldDecorator('endTime', {
+                        rules: [{ required: true, message: '结束时间为必填项！' }],
+                    })(<DatePicker />) }
+                </Form.Item>
+                <Form.Item label="请假事由">
+                    { getFieldDecorator('reason', {
+                        rules: [{ required: true, message: '请假事由为必填项！' }],
+                    })(<TextArea rows={4} />) }
+                </Form.Item> 
             </Form>
         );
     });
@@ -199,7 +257,7 @@ class PerfectInfo extends Component {
      */
     submit = () => {
         const { actions } = this.props;
-        const { type } = this.props.login;  // 用户类型
+        let type = localStorage.getItem('type');  // 用户类型
 
         this.validate((err, values) => {
             if (!err) {
@@ -214,9 +272,9 @@ class PerfectInfo extends Component {
                 oriId = oriId ? oriId : userData.lea_id;
 
                 switch (type) {
-                    case '1': actions.perfectInfo({
-                        stu_id: userData.stu_id,
-                        stu_name: oriData.name.value,
+                    case '1': actions.leave({
+                        id: userData.stu_id,
+                        name: oriData.name.value,
                         num: oriData.num.value,
                         college: oriData.college.value,
                         deparment: oriData.department.value,
@@ -228,9 +286,12 @@ class PerfectInfo extends Component {
                         position: oriData.position.value,
                         phone: oriData.phone.value,
                         qq: oriData.qq.value,
-                        type: userData.type
+                        type: userData.type,
+                        reason: oriData.reason.value,
+                        startTime: oriData.startTime.value,
+                        endTime: oriData.endTime.value,
                     }); break;
-                    default: actions.perfectInfo({
+                    default: actions.leave({
                         id: oriId,
                         name: oriData.name.value,
                         num: oriData.num.value,
@@ -240,13 +301,27 @@ class PerfectInfo extends Component {
                         sex: oriData.sex.value,
                         position: oriData.position.value,
                         phone: oriData.phone.value,
-                        type: userData.type
+                        type: userData.type,
+                        reason: oriData.reason.value,
+                        startTime: oriData.startTime.value,
+                        endTime: oriData.endTime.value,
                     }); break;
                 } 
             } else {
-                console.log('数据不合法！');
+                console.log('数据不合法！', err);
             }
         });
+    }
+
+    /**
+     * 返回到主页。
+     * @author Tinybo
+     * @date 2019 04 14
+     * @memberof Leave
+     */
+    back = () => {
+        hashHistory.push('/home');
+        console.log('已经点击返回了。');
     }
 
     render () {
@@ -257,10 +332,10 @@ class PerfectInfo extends Component {
         console.log('用户类型：', type);
 
         return (
-            <div className="perfectContainer">
+            <div className="leaveContainer">
                 <header>
-                    <span className="title">完善信息</span>
-                    <Back className="backBtn" url="/auth" text="返回" />
+                    <Header btnText="返回" callback={ this.back } />
+                    <NavLabel text="填写请假条" />
                 </header>
 
                 <main>
@@ -280,4 +355,4 @@ export default connect(
     (dispatch) => ({
         actions: bindActionCreators(actions, dispatch)
     })
-)(PerfectInfo);
+)(Leave);

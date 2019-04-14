@@ -8,7 +8,7 @@ import Advice from '../../../common/images/advice.png';
 
 
 /**
- * 模版组件。
+ * 主页导航组件。
  * @author Tinybo
  * @date 2018 12 11
  */
@@ -17,13 +17,21 @@ class Nav extends Component {
         super();
     }
 
+    /**
+     * 切换导航。
+     * @author Tinybo
+     * @date 2019 04 14
+     * @memberof Nav
+     */
     shiftNav = (nav, e) => {
-        console.log(nav);
+        const { callback } = this.props;
+        console.log('当前导航：', nav);
+        callback(nav);  
     }
 
     render () {
         return (
-            <div className="navContainer animated fadeInUp">
+            <div className="navContainer animated fadeInDown">
                 <IconBtn imgUrl={ Leave } text="请 假" textBold="bold" callback={ this.shiftNav.bind(this, 1) } />
                 <IconBtn imgUrl={ Arrive } text="签 到" textBold="bold" callback={ this.shiftNav.bind(this, 2) } />
                 <IconBtn imgUrl={ Advice } text="投 诉" textBold="bold" callback={ this.shiftNav.bind(this, 3) } />

@@ -4,7 +4,6 @@ import { hashHistory } from 'react-router';
 
 import { toast } from '../../common/utils/toast';
 import Header from '../../components/header';
-import Nav from './nav';
 import Footer from '../../components/footer';
 import Left from './left';
 import Middle from './middle';
@@ -21,7 +20,7 @@ class Home extends Component {
         super();
 
         this.state = {
-            activeNav: 1
+            activeNav: 2
         };
     }
 
@@ -73,7 +72,6 @@ class Home extends Component {
                 </header>
 
                 <main>
-                    <Nav />
                     { this.renderContent(this.state.activeNav) }
                 </main>
 

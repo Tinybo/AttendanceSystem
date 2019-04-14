@@ -43,6 +43,17 @@ export function login (data) {
                     localStorage.setItem('phone', result.phone);
                     localStorage.setItem('num', result.num);
                     localStorage.setItem('college', result.college);
+                    localStorage.setItem('department', result.department);
+                    localStorage.setItem('position', result.position);
+                    if (result.type == 1) {
+                        // 保存学生特有的信息
+                        localStorage.setItem('major', result.major);
+                        localStorage.setItem('grade', result.grade);
+                        localStorage.setItem('class', result.class);
+                        localStorage.setItem('qq', result.qq);
+                        localStorage.setItem('sex', result.sex);
+                        localStorage.setItem('age', result.age);
+                    }
 
                     dispatch({
                         type: LOGIN,
