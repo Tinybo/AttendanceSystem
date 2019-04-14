@@ -20,7 +20,7 @@ class Footer extends Component {
         super();
 
         this.state = {
-            activeNav: 1
+            activeNav: 2
         }
     }
 

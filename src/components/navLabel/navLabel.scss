@@ -1,0 +1,14 @@
+@import '../../common/colors.scss';
+
+.labelContainer {
+    display: flex;
+    flex-direction: row;
+    font-size: 14px;
+    color: $title;
+    padding: 13px 18px;
+    background: $background;
+
+    span {
+        margin-left: 5px;
+    }
+}

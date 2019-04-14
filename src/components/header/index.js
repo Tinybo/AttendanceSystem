@@ -15,7 +15,7 @@ class Header extends Component {
     }
 
     render () {
-        const { callback } = this.props;
+        const { callback, btnText, icon } = this.props;
 
         return (
             <div className="headerContainer">
@@ -23,9 +23,16 @@ class Header extends Component {
                     <img className="animated fadeInLeft" src={require("../../common/images/logo.png")} alt="logo" width="35" height="35" />
                     <span className="animated fadeInRight">考勤 · 系统</span>
                 </div>
-                <div className="setting">
-                    <Back text="注销" icon="logout" textColor="white" textBold="bold" callback={ callback } />
-                </div>
+                {
+                    btnText ? 
+                    (<div className="setting">
+                        <Back text={ btnText } textColor="white" textBold="bold" callback={ callback } />
+                    </div>)
+                    :
+                    (<div className="setting">
+                        <Back text="注销" icon="logout" textColor="white" textBold="bold" callback={ callback } />
+                    </div>)
+                }
             </div>
         )
     }
