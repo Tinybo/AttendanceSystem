@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import './middle.scss';
+
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as actions from './action';
 import { hashHistory } from 'react-router';
 import Nav from '../nav';
 import { Tabs, Icon, Timeline } from 'antd';
@@ -23,13 +27,32 @@ const renderTabBar = (props, DefaultTabBar) => (
 
 
 /**
- * 模版组件。
+ * 主页中间主体内容。
  * @author Tinybo
- * @date 2018 12 11
+ * @date 2019 04 15
  */
 class Middle extends Component {
     constructor () {
         super();
+    }
+
+    componentWillMount () {
+        const { actions } = this.props;
+
+        // 获取所有请假条信息
+        let type = localStorage.getItem('type');
+        let num = localStorage.getItem('num');
+        let userId = localStorage.getItem('userId');
+
+        let dataSource = actions.getLeaveNote({
+            num: num,
+            userId: userId,
+            type: type
+        });
+    }
+
+    componentDidMount () {
+        console.log('请假条：', this.props.getLeaveNote);
     }
 
     /**
@@ -128,4 +151,9 @@ class Middle extends Component {
     }
 }
 
-export default Middle;
+export default connect(
+    (state) => state, 
+    (dispatch) => ({
+        actions: bindActionCreators(actions, dispatch)
+    })
+)(Middle);
