@@ -201,23 +201,19 @@ class PerfectInfo extends Component {
      */
     submit = () => {
         const { actions } = this.props;
-        const { type } = this.props.login;  // 用户类型
+        let type = localStorage.getItem('type');
+        let oriId = localStorage.getItem('userId');
 
         this.validate((err, values) => {
             if (!err) {
                 console.log('完善的数据可以提交了：', this.state.fields);
                 let oriData = this.state.fields;
                 let userData = this.props.login;    // 登录后返回的用户信息
-                let oriId = '';
-
-                oriId = userData.stu_id ? userData.stu_id : '';
-                oriId = oriId ? oriId : userData.tea_id;
-                oriId = oriId ? oriId : userData.off_id;
-                oriId = oriId ? oriId : userData.lea_id;
+                console.log('登录后返回的数据：', userData);
 
                 switch (type) {
                     case '1': actions.perfectInfo({
-                        stu_id: userData.stu_id,
+                        stu_id: oriId,
                         stu_name: oriData.name.value,
                         num: oriData.num.value,
                         college: oriData.college.value,
@@ -230,7 +226,7 @@ class PerfectInfo extends Component {
                         position: oriData.position.value,
                         phone: oriData.phone.value,
                         qq: oriData.qq.value,
-                        type: userData.type
+                        type: type
                     }); break;
                     default: actions.perfectInfo({
                         id: oriId,
@@ -242,7 +238,7 @@ class PerfectInfo extends Component {
                         sex: oriData.sex.value,
                         position: oriData.position.value,
                         phone: oriData.phone.value,
-                        type: userData.type
+                        type: type
                     }); break;
                 } 
             } else {
