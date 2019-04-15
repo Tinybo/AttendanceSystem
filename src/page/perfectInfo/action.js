@@ -29,6 +29,8 @@ export function perfectInfo (data) {
                             ...result,
                         }
                     });
+
+                    console.log('完善信息:', result);
                     toast('success', '完善信息成功！');
                     hashHistory.push('/home');
                 } else {

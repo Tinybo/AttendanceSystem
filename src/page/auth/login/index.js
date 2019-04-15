@@ -105,8 +105,10 @@ class Login extends Component {
                     canPress: false
                 });
 
-                // 登录结果提示信息
-                const { phone, stu_name, type, isFinish } = this.props.login;
+                // 登录结果提示信息发
+                let phone = localStorage.getItem('phone');
+                const { stu_name, type, isFinish } = this.props.login;
+
                 if (phone) {
                     if (isFinish == 1) {
                         toast('info', '请先完善信息！');
@@ -117,7 +119,7 @@ class Login extends Component {
                         hashHistory.push('/home');
                     }
                 } else {
-                    toast('error', '该账户不存在！');
+                    // toast('error', '该账户不存在！');
                 }
             }
         }, 700);

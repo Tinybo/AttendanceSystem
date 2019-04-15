@@ -25,7 +25,7 @@ export function register (data) {
                 if (res.code != '404') {
                     let result = res.data;
                     toast('success', '注册成功！');
-                    hashHistory.push('/');
+                    hashHistory.push('/auth');  // 最后改为/
                     dispatch({
                         type: REGISTER,
                         data: {

@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import { host } from '../../../common/hosts';
+import { toast } from '../../../common/utils/toast';
 
 export const LOGIN = "LOGIN";
 export const RESET_BTN = "RESET_BTN";
@@ -69,6 +70,9 @@ export function login (data) {
                             isLoginFinish: true
                         }
                     });
+                    setTimeout(() => {
+                        toast('error', res.msg);
+                    }, 1000);
                 }
             },
             error: (err) => {
