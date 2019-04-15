@@ -10,7 +10,10 @@ import Header from '../../components/header';
 import NavLabel from '../../components/navLabel';
 import Back from '../../components/back';
 import BottomButton from '../../components/bottomButton';
-import { Form, Input, DatePicker } from 'antd';
+import { Form, Input, DatePicker, TimePicker } from 'antd';
+import moment from 'moment';
+import { toast } from '../../common/utils/toast';
+
 const { TextArea } = Input;
 
 /**
@@ -37,8 +40,10 @@ class Leave extends Component {
                 phone: { value: '' },       // 手机号
                 qq: { value: '' },          // QQ
                 reason: { value: '' },      // 请假事由
-                startTime: { value: '' },   // 开始时间
-                endTime: { value: '' },     // 结束时间
+                startTime: { value: null }, // 开始日期
+                endTime: { value: null },   // 结束日期
+                startMoment: { value: null },   // 开始时间
+                endMoment: { value: null },     // 结束时间
             }
         };
 
@@ -113,6 +118,8 @@ class Leave extends Component {
                     reason: Form.createFormField({ ...props.reason, value: props.reason.value,}),
                     startTime: Form.createFormField({ ...props.startTime, value: props.startTime.value,}),
                     endTime: Form.createFormField({ ...props.endTime, value: props.endTime.value,}),
+                    startMoment: Form.createFormField({ ...props.startMoment, value: props.startMoment.value,}),
+                    endMoment: Form.createFormField({ ...props.endMoment, value: props.endMoment.value,}),
                 }; 
             }
             // 教师、学工办、学院领导
@@ -128,6 +135,8 @@ class Leave extends Component {
                 reason: Form.createFormField({ ...props.reason, value: props.reason.value,}),
                 startTime: Form.createFormField({ ...props.startTime, value: props.startTime.value,}),
                 endTime: Form.createFormField({ ...props.endTime, value: props.endTime.value,}),
+                startMoment: Form.createFormField({ ...props.startMoment, value: props.startMoment.value,}),
+                endMoment: Form.createFormField({ ...props.endMoment, value: props.endMoment.value,}),
             };
         },
         onValuesChange(_, values) {
@@ -211,15 +220,22 @@ class Leave extends Component {
                         rules: [{ required: type == 1 ? true : false, message: 'QQ为必填项！' }],
                     })(<Input />) }
                 </Form.Item>
-                <Form.Item label="开始时间">
+                <Form.Item label="开始请假">
                     { getFieldDecorator('startTime', {
+                        rules: [{ required: true, message: '开始日期为必填项！' }],
+                    })(<DatePicker placeholder="开始日期" />) }
+                    { getFieldDecorator('startMoment', {
                         rules: [{ required: true, message: '开始时间为必填项！' }],
-                    })(<DatePicker />) }
+                    })(<TimePicker  placeholder="开始时间" />) }
                 </Form.Item>
-                <Form.Item label="结束时间">
+                
+                <Form.Item label="结束请假">
                     { getFieldDecorator('endTime', {
+                        rules: [{ required: true, message: '结束日期为必填项！' }],
+                    })(<DatePicker placeholder="结束日期" />) }
+                    { getFieldDecorator('endMoment', {
                         rules: [{ required: true, message: '结束时间为必填项！' }],
-                    })(<DatePicker />) }
+                    })(<TimePicker placeholder="结束时间" />) }
                 </Form.Item>
                 <Form.Item label="请假事由">
                     { getFieldDecorator('reason', {
@@ -277,7 +293,7 @@ class Leave extends Component {
                         name: oriData.name.value,
                         num: oriData.num.value,
                         college: oriData.college.value,
-                        deparment: oriData.department.value,
+                        department: oriData.department.value,
                         major: oriData.major.value,
                         grade:  oriData.grade.value,
                         class: oriData.class.value,
@@ -286,10 +302,12 @@ class Leave extends Component {
                         position: oriData.position.value,
                         phone: oriData.phone.value,
                         qq: oriData.qq.value,
-                        type: userData.type,
+                        type: type,
                         reason: oriData.reason.value,
-                        startTime: oriData.startTime.value,
-                        endTime: oriData.endTime.value,
+                        startTime: moment(oriData.startTime.value).format("YYYY-MM-DD"),
+                        endTime: moment(oriData.endTime.value).format("YYYY-MM-DD"),
+                        startMoment: moment(oriData.startMoment.value).format("hh:mm:ss"),
+                        endMoment: moment(oriData.endMoment.value).format("hh:mm:ss"),
                     }); break;
                     default: actions.leave({
                         id: oriId,
@@ -303,11 +321,20 @@ class Leave extends Component {
                         phone: oriData.phone.value,
                         type: userData.type,
                         reason: oriData.reason.value,
-                        startTime: oriData.startTime.value,
-                        endTime: oriData.endTime.value,
+                        startTime: moment(oriData.startTime.value).format("YYYY-MM-DD"),
+                        endTime: moment(oriData.endTime.value).format("YYYY-MM-DD"),
+                        startMoment: moment(oriData.startMoment.value).format("h:mm:ss a"),
+                        endMoment: moment(oriData.endMoment.value).format("h:mm:ss a"),
                     }); break;
                 } 
             } else {
+                let errMsg = '';
+                for (const key in err) {
+                    err[key].errors.forEach(x => {
+                        toast('warning', x.message);
+                    })
+                }
+                // toast('warning', errMsg);
                 console.log('数据不合法！', err);
             }
         });
@@ -327,7 +354,8 @@ class Leave extends Component {
     render () {
         const fields = this.state.fields;
         let UserForm = this.PerfectInfoForm;
-        const { type } = this.props.login;
+        // const { type } = this.props.login;
+        let type = localStorage.getItem('type');
 
         console.log('用户类型：', type);
 

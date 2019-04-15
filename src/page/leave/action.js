@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import { host } from '../../common/hosts';
 import { toast } from '../../common/utils/toast';
+import { hashHistory } from 'react-router';
 
 export const LEAVE = "LEAVE";
 
@@ -28,6 +29,7 @@ export function leave (data) {
                             isFinish: true
                         }
                     });
+                    hashHistory.push('/home');
                 } else {
                     toast('error', '请假信息提交失败！');
                     dispatch({

@@ -26,8 +26,22 @@
             margin-bottom: 15px;
         }
 
-        .ant-input {
+        .ant-input, .ant-time-picker-input {
             height: 35px;
+        }
+
+        .ant-time-picker-input {
+            width: 98%;
+            margin-left: 2px;
+        }
+
+        .ant-form-item-children {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .ant-form-item-children span {
+            flex: 1;
         }
 
         #perfect_reason {
@@ -35,7 +49,7 @@
         }
 
         #perfect_startTime, #perfect_endTime {
-            width: 100%;
+            width: 50%;
         }
 
         .submitBtn {

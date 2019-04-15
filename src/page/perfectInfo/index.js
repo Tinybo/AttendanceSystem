@@ -8,6 +8,8 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from './action';
 
+import { toast } from '../../common/utils/toast';
+
 /**
  * 模版组件。
  * @author Tinybo
@@ -244,6 +246,13 @@ class PerfectInfo extends Component {
                     }); break;
                 } 
             } else {
+                let errMsg = '';
+                for (const key in err) {
+                    err[key].errors.forEach(x => {
+                        toast('warning', x.message);
+                    })
+                }
+                // toast('warning', errMsg);
                 console.log('数据不合法！');
             }
         });
@@ -252,7 +261,7 @@ class PerfectInfo extends Component {
     render () {
         const fields = this.state.fields;
         let UserForm = this.PerfectInfoForm;
-        const { type } = this.props.login;
+        let type = localStorage.getItem('type');
 
         console.log('用户类型：', type);
 
