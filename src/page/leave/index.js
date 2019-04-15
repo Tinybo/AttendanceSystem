@@ -277,7 +277,7 @@ class Leave extends Component {
 
         this.validate((err, values) => {
             if (!err) {
-                console.log('完善的数据可以提交了：', this.state.fields);
+                console.log('请假的数据可以提交了：', this.state.fields);
                 let oriData = this.state.fields;
                 let userData = this.props.login;    // 登录后返回的用户信息
                 let oriId = '';
@@ -314,17 +314,17 @@ class Leave extends Component {
                         name: oriData.name.value,
                         num: oriData.num.value,
                         college: oriData.college.value,
-                        deparment: oriData.department.value,
+                        department: oriData.department.value,
                         age: oriData.age.value,
                         sex: oriData.sex.value,
                         position: oriData.position.value,
                         phone: oriData.phone.value,
-                        type: userData.type,
+                        type: type,
                         reason: oriData.reason.value,
                         startTime: moment(oriData.startTime.value).format("YYYY-MM-DD"),
                         endTime: moment(oriData.endTime.value).format("YYYY-MM-DD"),
-                        startMoment: moment(oriData.startMoment.value).format("h:mm:ss a"),
-                        endMoment: moment(oriData.endMoment.value).format("h:mm:ss a"),
+                        startMoment: moment(oriData.startMoment.value).format("h:mm:ss"),
+                        endMoment: moment(oriData.endMoment.value).format("h:mm:ss"),
                     }); break;
                 } 
             } else {
