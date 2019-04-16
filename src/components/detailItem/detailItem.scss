@@ -1,0 +1,24 @@
+@import '../../common/colors.scss';
+
+.detailItemContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 14px;
+    margin: 17px auto;
+
+
+    .left {
+        margin-left: 17px;
+        color: $title;
+        width: 20%;
+    }
+
+    .right {
+        margin-right: 17px;
+        color: $content;
+        width: 80%;
+        word-wrap:break-word; 
+        text-align: right;
+    }
+}

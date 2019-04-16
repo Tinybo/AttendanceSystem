@@ -11,7 +11,8 @@ export const GET_LEAVE_NOTE = "GET_LEAVE_NOTE";
  * @date 2019 04 15
  */
 export function getLeaveNote (data) {
-    console.log('正在调用获取请假条接口。');
+    console.log('正在调用获取请假条接口。', data);
+
     return (dispatch, getState) => {
         // 调用后台获取请假条接口。
         $.get({
@@ -21,11 +22,11 @@ export function getLeaveNote (data) {
             success: (res) => {
                 console.log('请假条获取接口调用成功：', res);
                 if (res.code != '404') {
-                    toast('success', '请假条信息获取成功！');
                     dispatch({
                         type: GET_LEAVE_NOTE,
                         data: {
-                            isFinish: true
+                            isFinish: true,
+                            leaveNoteData: res.data
                         }
                     });
                     return res;

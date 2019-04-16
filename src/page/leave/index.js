@@ -19,7 +19,7 @@ const { TextArea } = Input;
 /**
  * 填写请假条。
  * @author Tinybo
- * @date 2018 12 11
+ * @date 2019 04 16
  */
 class Leave extends Component {
     constructor () {
@@ -64,12 +64,12 @@ class Leave extends Component {
         let department = localStorage.getItem('department');
         let position = localStorage.getItem('position');
         // 保存学生特有的信息
-        let major = localStorage.getItem('major') || '';
-        let grade = localStorage.getItem('grade') || '';
-        let Class = localStorage.getItem('class') || '';
-        let qq = localStorage.getItem('qq') || '';
-        let sex = localStorage.getItem('sex') || '';
-        let age = localStorage.getItem('age') || '';
+        let major = localStorage.getItem('major');
+        let grade = localStorage.getItem('grade');
+        let Class = localStorage.getItem('class');
+        let qq = localStorage.getItem('qq');
+        let sex = localStorage.getItem('sex');
+        let age = localStorage.getItem('age');
 
         this.setState({
             fields: Object.assign(this.state.fields, {
@@ -190,12 +190,12 @@ class Leave extends Component {
                         rules: [{ required: type == 1 ? true : false, message: '班级为必填项！' }],
                     })(<Input />) }
                 </Form.Item>
-                <Form.Item label="年龄">
+                <Form.Item label="年龄" style = {{ display: type == 1 ? 'block' : 'none' }}>
                     { getFieldDecorator('age', {
                         rules: [{ required: true, message: '年龄为必填项！' }],
                     })(<Input />) }
                 </Form.Item>
-                <Form.Item label="性别">
+                <Form.Item label="性别" style = {{ display: type == 1 ? 'block' : 'none' }}>
                     { getFieldDecorator('sex', {
                         rules: [{ required: true, message: '性别为必填项！' }],
                     })(<Input />) }
@@ -279,17 +279,11 @@ class Leave extends Component {
             if (!err) {
                 console.log('请假的数据可以提交了：', this.state.fields);
                 let oriData = this.state.fields;
-                let userData = this.props.login;    // 登录后返回的用户信息
-                let oriId = '';
-
-                oriId = userData.stu_id ? userData.stu_id : '';
-                oriId = oriId ? oriId : userData.tea_id;
-                oriId = oriId ? oriId : userData.off_id;
-                oriId = oriId ? oriId : userData.lea_id;
+                let oriId = localStorage.getItem('userId');
 
                 switch (type) {
                     case '1': actions.leave({
-                        id: userData.stu_id,
+                        id: oriId,
                         name: oriData.name.value,
                         num: oriData.num.value,
                         college: oriData.college.value,

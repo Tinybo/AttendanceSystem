@@ -13,6 +13,7 @@ import LeaveCard from '../../../components/leaveCard';
 import SuccessIcon from '../../../common/images/checkPass.png';
 import FailIcon from '../../../common/images/failed.png';
 import CheckingIcon from '../../../common/images/checking.png';
+import CancelIcon from '../../../common/images/cancelLeave.png';
 
 const TabPane = Tabs.TabPane;
 
@@ -24,7 +25,21 @@ const renderTabBar = (props, DefaultTabBar) => (
   </Sticky>
 );
 
+// 时间轴圆圈颜色
+let oriColor = {
+    0: '#2d8cf0',
+    1: '#19be6b',
+    2: '#ed4014',
+    3: '#515a6e'
+};
 
+// 请假条状态图片
+let urlImg = {
+    0: CheckingIcon,
+    1: SuccessIcon,
+    2: FailIcon,
+    3: CancelIcon
+};
 
 /**
  * 主页中间主体内容。
@@ -44,15 +59,25 @@ class Middle extends Component {
         let num = localStorage.getItem('num');
         let userId = localStorage.getItem('userId');
 
-        let dataSource = actions.getLeaveNote({
+        actions.getLeaveNote({
             num: num,
             userId: userId,
             type: type
         });
     }
 
-    componentDidMount () {
-        console.log('请假条：', this.props.getLeaveNote);
+    /**
+     * 跳转至请假条详情页。
+     * @author Tinybo
+     * @date 2019 04 16
+     * @memberof Middle
+     */
+    toDetail = (data) => {
+        console.log('即将进入请假条详情页：', data);
+        hashHistory.push({
+            pathname: '/leaveDetail',
+            query: Object.assign({}, data, { urlImg: urlImg[data.isSuccess] })
+        });
     }
 
     /**
@@ -62,50 +87,22 @@ class Middle extends Component {
      * @memberof Middle
      */
     renderLeaveRecord = () => {
-        // 模拟数据
-        let datas = [
-            {
-                title: '张宇的请假',
-                urlImg: SuccessIcon,
-                reason: '由于身体不舒服，想去大医院做一个全面的检查。',
-                startTime: '2019-03-18 上午',
-                endTime: '2019-03-18 下午',
-                createTime: '2019-03-17',
-                status: 1
-            },
-            {
-                title: '张宇的请假',
-                urlImg: CheckingIcon,
-                reason: '由于身体不舒服，想去大医院做一个全面的检查。',
-                startTime: '2019-03-18 上午',
-                endTime: '2019-03-18 下午',
-                createTime: '2019-03-17',
-                status: 0
-            },
-            {
-                title: '张宇的请假',
-                urlImg: FailIcon,
-                reason: '由于身体不舒服，想去大医院做一个全面的检查。',
-                startTime: '2019-03-18 上午',
-                endTime: '2019-03-18 下午',
-                createTime: '2019-03-17',
-                status: 2
+        const { leaveNoteData } = this.props.middle;
+        let dataTemp = [];
+
+        if (leaveNoteData.length > 0) {
+            for (let i = leaveNoteData.length - 1; i >= 0; i--) {
+                dataTemp.push(leaveNoteData[i]);
             }
-
-        ];
-
-        let oriColor = {
-            0: '#2d8cf0',
-            1: '#19be6b',
-            2: '#ed4014'
-        };
+        }
+        console.log('请假条：', leaveNoteData);
 
         return (
             <div className="recordContainer" >
                 {
-                    datas.length > 0 ?
-                    datas.map((x, index) => {
-                        return <Timeline.Item key={ index } color={ oriColor[x.status] }><LeaveCard data={ x } /></Timeline.Item>
+                    dataTemp.length > 0 ?
+                    dataTemp.map((x, index) => {
+                        return <Timeline.Item key={ index } color={ oriColor[x.isSuccess] }><LeaveCard data={ x } iconImg={ urlImg[x.isSuccess] } onClick={ this.toDetail.bind(this, x) } /></Timeline.Item>
                     })
                     :
                     <Timeline.Item color="#515a6e">暂无记录</Timeline.Item>

@@ -3,7 +3,8 @@ import { Object } from 'core-js';
 
 // middle页的初始化数据
 const initData = {
-    isFinish: false
+    isFinish: false,
+    leaveNoteData: []
 }
 
 export default function leave (state = initData, action) {

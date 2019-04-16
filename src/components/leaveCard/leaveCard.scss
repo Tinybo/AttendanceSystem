@@ -25,13 +25,14 @@
         flex-direction: row;
         
         .label {
-            width: 96px;
+            width: 71px;
         }
     }
 
     .bottom {
         display: flex;
         flex-direction: column;
+        margin-bottom: 10px;
     }
 
     .time {
