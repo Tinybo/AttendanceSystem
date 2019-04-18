@@ -13,7 +13,7 @@ class LeaveCard extends Component {
     }
 
     render () {
-        const { data, iconImg, onClick } = this.props;
+        const { data, iconImg, onClick, buttonText, buttonCallback } = this.props;
         let oriColor = {
             0: '#2d8cf0',
             1: '#19be6b',
@@ -22,20 +22,28 @@ class LeaveCard extends Component {
         };
 
         return (
-            <div className="leaveCardContainer" style={{ border: '2px solid ' + oriColor[data.isSuccess] }} onClick={ onClick } >
+            <div className="leaveCardContainer" style={{ border: '2px solid ' + oriColor[data.isSuccess] }} >
                 <div className="top">
-                    <span>{ data.name } 的请假</span>
-                    <img src={ iconImg } alt="logo" width="50" height="50" />
+                    <span onClick={ onClick }>{ data.name } 的请假</span>
+                    {
+                        (buttonText && data.isSuccess == 0) ?
+                        (
+                            <button onClick={() => { buttonCallback(data.userId, data.id) }}>{ buttonText }</button>
+                        ) : 
+                        (
+                            <img src={ iconImg } alt="logo" width="50" height="50" />
+                        )
+                    }
                 </div>
-                <div className="middle">
+                <div className="middle" onClick={ onClick }>
                     <span className="label">请假事由：</span>
                     <span className="text">{ data.reason }</span>
                 </div>
-                <div className="bottom">
+                <div className="bottom" onClick={ onClick }>
                     <span className="text">开始时间：{ dateFormat(data.startTime) }</span>
                     <span className="text">结束时间：{ dateFormat(data.endTime) }</span>
                 </div>
-                <span className="time">{ data.createTime }</span>
+                <span className="time" onClick={ onClick }>{ data.createTime }</span>
             </div>
         )
     }
