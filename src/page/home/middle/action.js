@@ -4,6 +4,7 @@ import { toast } from '../../../common/utils/toast';
 import { hashHistory } from 'react-router';
 
 export const GET_LEAVE_NOTE = "GET_LEAVE_NOTE";
+export const EMPTY_DATA = "EMPTY_DATA";
 
 /**
  * 获取请假条。
@@ -31,7 +32,6 @@ export function getLeaveNote (data) {
                     });
                     return res;
                 } else {
-                    toast('error', '请假条信息获取失败！');
                     dispatch({
                         type: GET_LEAVE_NOTE,
                         data: {
@@ -48,6 +48,27 @@ export function getLeaveNote (data) {
                         isFinish: false
                     }
                 });
+            }
+        });
+        
+    }
+}
+
+/**
+ * 获取请假条。
+ * @author Tinybo
+ * @date 2019 04 15
+ */
+export function emptyData () {
+    console.log('正在清空数据。');
+
+    return (dispatch, getState) => {
+        // 调用后台获取请假条接口。
+        dispatch({
+            type: EMPTY_DATA,
+            data: {
+                isFinish: false,
+                leaveNoteData: []
             }
         });
         
