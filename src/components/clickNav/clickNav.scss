@@ -1,0 +1,15 @@
+@import '../../common/colors.scss';
+
+.clickNavContainer {
+    display: flex;
+    flex-direction: row;
+    font-size: 14px;
+    padding: 13px 18px;
+    background: $background;
+
+    .navItem {
+        transition: color .5s linear;
+        margin-right: 35px;
+    }
+
+}
