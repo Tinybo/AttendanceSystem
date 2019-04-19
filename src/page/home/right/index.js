@@ -3,9 +3,9 @@ import './right.scss';
 
 
 /**
- * 模版组件。
+ * 个人中心组件。
  * @author Tinybo
- * @date 2018 12 11
+ * @date 2019 04 19
  */
 class Right extends Component {
     constructor () {

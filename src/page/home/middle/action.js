@@ -35,7 +35,8 @@ export function getLeaveNote (data) {
                     dispatch({
                         type: GET_LEAVE_NOTE,
                         data: {
-                            isFinish: false
+                            isFinish: false,
+                            leaveNoteData: []
                         }
                     });
                 }
@@ -45,7 +46,8 @@ export function getLeaveNote (data) {
                 dispatch({
                     type: GET_LEAVE_NOTE,
                     data: {
-                        isFinish: false
+                        isFinish: false,
+                        leaveNoteData: []
                     }
                 });
             }
