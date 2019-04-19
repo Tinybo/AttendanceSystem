@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
 import './leaveDetail.scss';
+import { Modal, Button, Input } from 'antd';
+
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from './action';
+import * as actionsLeave from '../home/middleAdmin/action';
 import { hashHistory } from 'react-router';
 
+import { toast } from '../../common/utils/toast';
 import { dateFormat } from '../../common/utils/dateFormat';
 import Header from '../../components/header';
 import NavLabel from '../../components/navLabel';
 import DetailItem from '../../components/detailItem';
 import BottomButton from '../../components/bottomButton';
+import DoubleButton from '../../components/doubleButton';
+
+const { TextArea } = Input;
+
 /**
  * 请假条详情。
  * @author Tinybo
@@ -18,6 +26,11 @@ import BottomButton from '../../components/bottomButton';
 class LeaveDetail extends Component {
     constructor () {
         super();
+
+        this.state = {
+            visible: false,
+            reject: ''
+        }
     }
 
     /**
@@ -28,6 +41,72 @@ class LeaveDetail extends Component {
      */
     back = () => {
         hashHistory.push('/home');
+    }
+
+    /**
+     * 显示填写拒绝理由对话框。
+     * @author Tinybo
+     * @date 2019 04 19
+     * @memberof LeaveDetail
+     */
+    showModal = () => {
+        this.setState({
+            visible: true,
+        });
+    }
+
+    /**
+     * 实时更新拒绝理由。
+     * @author Tinybo
+     * @date 2019 04 19
+     * @memberof LeaveDetail
+     */
+    handleChange = (e) => {
+        this.setState({
+            reject: e.target.value
+        });
+    } 
+    
+    /**
+     * 对话框确认按钮。
+     * @author Tinbo
+     * @date 2019 04 19
+     * @memberof LeaveDetail
+     */
+    handleOk = (e) => {
+        if (this.state.reject === '') {
+            toast('warning', '请先填写拒绝理由！');
+            return;
+        }
+
+        console.log('拒绝理由：', this.state.reject);
+        let { actions } = this.props;
+        let data = this.props.location.query;
+        let type = localStorage.getItem('type');
+
+        // 销假
+        actions.rejectLeave({
+            id: data.id,
+            userId: data.userId,
+            type: type,
+            note: this.state.reject
+        });
+
+        this.setState({
+            visible: false,
+        });
+    }
+
+    /**
+     * 对话框取消按钮。
+     * @author Tinbo
+     * @date 2019 04 19
+     * @memberof LeaveDetail
+     */
+    handleCancel = (e) => {
+        this.setState({
+            visible: false,
+        });
     }
     
     /**
@@ -48,6 +127,38 @@ class LeaveDetail extends Component {
             userId: data.userId,
             type: type
         });
+    }
+
+    /**
+     * 请假条确认通过。
+     * @author Tinybo
+     * @date 2019 04 19
+     * @memberof LeaveDetail
+     */
+    pass = async () => {
+        const { actionsLeave } = this.props;
+        let type = localStorage.getItem('type');
+        let data = this.props.location.query;
+
+        await actionsLeave.passLeave({
+            type: type,
+            id: data.id,
+            userId: data.userId
+        });
+
+        hashHistory.push('/home');
+        console.log('请假条通过', this.props);
+    }
+
+    /**
+     * 请假条拒绝通过。
+     * @author Tinybo
+     * @date 2019 04 19
+     * @memberof LeaveDetail
+     */
+    noPass = () => {
+        console.log('拒绝通过');
+        this.showModal();
     }
 
     render () {
@@ -76,10 +187,40 @@ class LeaveDetail extends Component {
                     <DetailItem label="结束时间" value={ dateFormat(data.endTime) } />
                     <DetailItem label="手机号" value={ data.phone } />
                     <DetailItem label="请假事由" value={ data.reason } />
+                    {
+                        data.note ? (
+                            <DetailItem label="拒绝理由" value={ data.note } />
+                        ): ''
+                    }
+
+                    <Modal
+                        title="填写拒绝理由"
+                        visible={this.state.visible}
+                        onOk={this.handleOk}
+                        onCancel={this.handleCancel}
+                        okText="确定拒绝"
+                        cancelText="取消拒绝" 
+                        >
+                        <TextArea rows={5} defaultValue={ this.state.reject } ref="reject" placeholder="填写拒绝理由……" onChange={ this.handleChange } />
+                    </Modal>
                 </main>
 
                 <footer style={{ display: data.isSuccess == '0' ? 'block' : 'none' }}>
-                    <BottomButton text="销 假" callback={ this.cancelLeave } />
+                    {
+                        (type == 1 || type == 2) ? 
+                        (
+                            <BottomButton text="销 假" callback={ this.cancelLeave } />
+                        ):
+                        (
+                            <DoubleButton 
+                                text1="拒绝通过" 
+                                color1="#ed4014" 
+                                text2="确认通过"
+                                color2="#2d8cf0"
+                                callback1={ this.noPass }
+                                callback2={ this.pass } />
+                        )
+                    }
                 </footer>
             </div>
         )
@@ -89,6 +230,7 @@ class LeaveDetail extends Component {
 export default connect(
     (state) => state, 
     (dispatch) => ({
-        actions: bindActionCreators(actions, dispatch)
+        actions: bindActionCreators(actions, dispatch),
+        actionsLeave: bindActionCreators(actionsLeave, dispatch),
     })
 )(LeaveDetail);

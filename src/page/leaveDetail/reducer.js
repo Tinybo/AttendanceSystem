@@ -10,6 +10,8 @@ export default function cancelLeave (state = initData, action) {
     switch (action.type) {
         case actions.CANCEL_LEAVE:
             return Object.assign({}, state, action.data);
+        case actions.REJECT_LEAVE:
+            return Object.assign({}, state, action.data);
         default:
             return state;
     }
