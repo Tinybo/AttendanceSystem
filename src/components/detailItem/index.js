@@ -39,7 +39,7 @@ class DetailItem extends Component {
 
         return (
             <div className="detailItemContainer">
-                <div className="left">{ label }</div>
+                <div className="left" style={{ fontWeight: label == '拒绝理由' ? 'bold' : 'normal' }}>{ label }</div>
                 <div className="right">{ value}</div>
             </div>
         )

@@ -40,6 +40,12 @@
         
         .label {
             width: 71px;
+            flex: 3;
+        }
+
+        .text {
+            flex: 9;
+            margin-left: -5px;
         }
     }
 

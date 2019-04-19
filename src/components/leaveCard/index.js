@@ -37,7 +37,7 @@ class LeaveCard extends Component {
                 </div>
                 <div className="middle" onClick={ onClick }>
                     <span className="label">请假事由：</span>
-                    <span className="text">{ data.reason }</span>
+                    <div className="text">{ data.reason }</div>
                 </div>
                 <div className="bottom" onClick={ onClick }>
                     <span className="text">开始时间：{ dateFormat(data.startTime) }</span>
