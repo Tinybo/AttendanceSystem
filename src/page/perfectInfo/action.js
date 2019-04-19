@@ -57,8 +57,8 @@ export function perfectInfo (data) {
                         }
                     });
 
-                    console.log('完善信息:', result);
-                    toast('success', '完善信息成功！');
+                    console.log('编辑信息:', result);
+                    toast('success', '编辑信息成功！');
                     hashHistory.push('/home');
                 } else {
                     toast('error', '完善信息失败！');

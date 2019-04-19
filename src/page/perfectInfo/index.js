@@ -33,7 +33,8 @@ class PerfectInfo extends Component {
                 position: { value: '' },    // 职务
                 phone: { value: '' },       // 手机号
                 qq: { value: '' },          // QQ
-            }
+            },
+            isEdit: false,                  // 是否为编辑信息
         };
 
         this.validate = '';                 // 表单校验函数
@@ -41,12 +42,34 @@ class PerfectInfo extends Component {
 
     // 给表单赋默认值
     componentWillMount () {
-        const oriData = this.props.login;
-        this.setState({
-            fields: Object.assign(this.state.fields, {
-                phone: { value: oriData.phone }
-            })
-        });
+        let data = this.props.location.query;
+        if (data.phone) {
+            this.setState({
+                fields: Object.assign(this.state.fields, {
+                    name: { value: data.name },
+                    college: { value: data.college }, 
+                    department: { value: data.department },
+                    major: { value: data.major },
+                    grade: { value: data.grade },
+                    class: { value: data.Class },
+                    qq: { value: data.qq },
+                    sex: { value: data.sex },
+                    age: { value: data.age },
+                    position: { value: data.position },
+                    phone: { value: data.phone },
+                    num: { value: data.num },
+                }),
+                isEdit: true
+            });
+        } else {
+            const oriData = this.props.login;
+
+            this.setState({
+                fields: Object.assign(this.state.fields, {
+                    phone: { value: oriData.phone }
+                })
+            });
+        }
     }
 
     /**
@@ -264,8 +287,8 @@ class PerfectInfo extends Component {
         return (
             <div className="perfectContainer">
                 <header>
-                    <span className="title">完善信息</span>
-                    <Back className="backBtn" url="/auth" text="返回" />
+                    <span className="title">编辑信息</span>
+                    <Back className="backBtn" url={ this.state.isEdit ? "/home" : "/auth" } text="返回" />
                 </header>
 
                 <main>

@@ -1,5 +1,36 @@
 @import '../../../common/colors.scss';
 
 .rightContainer {
-    
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    header {
+        background: $primary;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        padding: 10px;
+
+        span {
+            color: white;
+            letter-spacing: 3px;
+            text-indent: 3px;
+            margin-top: 3px;
+        }
+    }
+
+    main {
+        flex:1;
+        overflow:auto;
+        -webkit-overflow-scrolling:touch;
+    }
+
+    footer {
+        width: 100%;
+        height: 50px;
+    }
 }
