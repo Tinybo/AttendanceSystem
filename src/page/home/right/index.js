@@ -86,7 +86,7 @@ class Right extends Component {
                 </header>
                 <NavLabel text="基本信息" />
 
-                <main>
+                <main className="animated fadeIn">
                     <DetailItem label="姓名" value={ this.state.name } />
                     <DetailItem label="大学" value={ this.state.college } />
                     <DetailItem label="系别" value={ this.state.department } />
