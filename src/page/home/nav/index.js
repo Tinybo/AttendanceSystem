@@ -30,10 +30,12 @@ class Nav extends Component {
     }
 
     render () {
+        let type = localStorage.getItem('type');
+
         return (
             <div className="navContainer animated fadeInDown">
                 <IconBtn imgUrl={ Leave } text="请 假" textBold="bold" callback={ this.shiftNav.bind(this, 1) } />
-                <IconBtn imgUrl={ Arrive } text="签 到" textBold="bold" callback={ this.shiftNav.bind(this, 2) } />
+                <IconBtn imgUrl={ Arrive } text={ type == '1' ? '签 到' : '点到' } textBold="bold" callback={ this.shiftNav.bind(this, 2) } />
                 <IconBtn imgUrl={ Advice } text="投 诉" textBold="bold" callback={ this.shiftNav.bind(this, 3) } />
             </div>
         )

@@ -119,10 +119,12 @@ class Middle extends Component {
      * @memberof Middle
      */
     shiftPage = (active) => {
+        let type = localStorage.getItem('type');
+
         switch (active) {
-            case '1': hashHistory.push('/leave'); break;
-            case '2': hashHistory.push('/auth'); break;
-            case '3': hashHistory.push('/leave'); break;
+            case 1: hashHistory.push('/leave'); break;
+            case 2: type == '1' ? hashHistory.push('/attendance/student') : hashHistory.push('/attendance/teacher'); break;
+            case 3: hashHistory.push('/leave'); break;
             default: hashHistory.push('/leave'); break;
         }
     }
