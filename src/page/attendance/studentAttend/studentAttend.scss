@@ -15,6 +15,11 @@
         overflow:auto;
         -webkit-overflow-scrolling:touch;
         margin-top: 20px;
+        padding: 5px 18px 10px;
+
+        .searchResult {
+            margin-top: 20px;
+        }
     }
 
     footer {
