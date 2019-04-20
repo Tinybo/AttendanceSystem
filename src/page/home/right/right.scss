@@ -27,6 +27,11 @@
         flex:1;
         overflow:auto;
         -webkit-overflow-scrolling:touch;
+
+        img {
+            position: absolute;
+            opacity: .5;
+        }
     }
 
     footer {

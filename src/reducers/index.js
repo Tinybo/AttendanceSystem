@@ -9,6 +9,8 @@ import leave from '../page/leave/reducer';              // 导入请假条
 import middle from '../page/home/middle/reducer';       // 主页主体内容
 import middleAdmin from '../page/home/middleAdmin/reducer';  // 主页主体内容（学工办、学院领导）
 import cancelLeave from '../page/leaveDetail/reducer';  // 请假条详情页
+import studentAttend from '../page/attendance/studentAttend/reducer';
+import teacherAttend from '../page/attendance/teacherAttend/reducer';
 
 
 // 合并所有的reducer
@@ -21,6 +23,8 @@ const rootReducer = combineReducers({
     middleAdmin,
     cancelLeave,
     home,
+    studentAttend,
+    teacherAttend,
     routing: routerReducer
 });
 

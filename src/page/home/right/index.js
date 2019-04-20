@@ -5,6 +5,7 @@ import NavLabel from '../../../components/navLabel';
 import DetailItem from '../../../components/detailItem';
 import BottomButton from '../../../components/bottomButton';
 import { hashHistory } from 'react-router';
+import Bg from '../../../common/images/zhuzi.png';
 
 /**
  * 个人中心组件。
@@ -87,6 +88,7 @@ class Right extends Component {
                 <NavLabel text="基本信息" />
 
                 <main className="animated fadeIn">
+                    <img src={ Bg } alt="background" width="365" height="150"/>
                     <DetailItem label="姓名" value={ this.state.name } />
                     <DetailItem label="大学" value={ this.state.college } />
                     <DetailItem label="系别" value={ this.state.department } />
