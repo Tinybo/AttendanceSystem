@@ -1,0 +1,94 @@
+@import '../../common/colors.scss';
+
+.studentInfoContainer {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+
+    .chooseInfo {
+        width: 100%;
+        background: $background;
+        padding: 10px;
+        border-radius: 5px;
+
+        .status {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+
+            .item {
+                margin: 5px 5px 0 0;
+        
+                .label {
+                    color: $title;
+                }
+        
+                .content {
+                    color: $content;
+                    margin-right: 10px;
+                }
+            }
+        }
+
+        .editBtn {
+            width: 100%;
+            margin-top: 10px;
+            color: $primary;
+            text-align: center;
+        }
+    }
+
+    .studentInfo {
+        display: flex;
+        flex-direction: column;
+
+        .label {
+            display: flex;
+            flex-direction: row;
+            background: $background;
+            border-radius: 5px;
+            height: 30px;
+            line-height: 30px;
+            padding-left: 10px;
+            margin-bottom: 10px;
+        }
+
+        .value {
+            display: flex;
+            flex-direction: row;
+            border-radius: 5px;
+            padding: 10px 0 10px 10px;
+            border: 1px solid $background; 
+        }
+
+        .name {
+            flex: 1;
+        }
+
+        .num {
+            flex: 2;
+        }
+
+        .operation {
+            flex: 1;
+        }
+    }
+
+    .ant-select {
+        margin: 5px 1px;
+    }
+
+    .item {
+        margin: 5px;
+
+        .label {
+            color: $title;
+        }
+
+        .content {
+            color: $content;
+        }
+    }
+
+
+}
