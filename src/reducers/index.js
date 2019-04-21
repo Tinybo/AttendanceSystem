@@ -11,6 +11,8 @@ import middleAdmin from '../page/home/middleAdmin/reducer';  // 主页主体内�
 import cancelLeave from '../page/leaveDetail/reducer';  // 请假条详情页
 import studentAttend from '../page/attendance/studentAttend/reducer';
 import teacherAttend from '../page/attendance/teacherAttend/reducer';
+import teacherCourse from '../page/attendance/teacherCourse/reducer';
+import courseDetail from '../page/attendance/courseDetail/reducer';
 
 
 // 合并所有的reducer
@@ -25,6 +27,8 @@ const rootReducer = combineReducers({
     home,
     studentAttend,
     teacherAttend,
+    teacherCourse,
+    courseDetail,
     routing: routerReducer
 });
 

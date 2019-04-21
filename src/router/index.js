@@ -7,6 +7,8 @@ import LeaveDetail from '../page/leaveDetail';  // 请假条详情页
 import Attendance from '../page/attendance';
 import StudentAttendance from '../page/attendance/studentAttend';
 import TeacherAttendance from '../page/attendance/teacherAttend';
+import TeacherCourse from '../page/attendance/teacherCourse';
+import CourseDetail from '../page/attendance/courseDetail';
 
 export const routes = [
     {
@@ -25,7 +27,9 @@ export const routes = [
                 component: Attendance,
                 childRoutes: [
                     { path: 'student', component: StudentAttendance },
-                    { path: 'teacher', component: TeacherAttendance }
+                    { path: 'teacherCourse', component: TeacherCourse },
+                    { path: 'teacherAttend', component: TeacherAttendance },
+                    { path: 'courseDetail', component: CourseDetail }
                 ]
             },
             {

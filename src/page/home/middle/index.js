@@ -123,7 +123,7 @@ class Middle extends Component {
 
         switch (active) {
             case 1: hashHistory.push('/leave'); break;
-            case 2: type == '1' ? hashHistory.push('/attendance/student') : hashHistory.push('/attendance/teacher'); break;
+            case 2: type == '1' ? hashHistory.push('/attendance/student') : hashHistory.push('/attendance/teacherCourse'); break;
             case 3: hashHistory.push('/leave'); break;
             default: hashHistory.push('/leave'); break;
         }
