@@ -74,7 +74,7 @@ class TeacherAttendance extends Component {
      * @memberof Leave
      */
     back = () => {
-        hashHistory.push('/home');
+        hashHistory.push('/attendance/teacherCourse');
         console.log('已经点击返回了。');
     }
 

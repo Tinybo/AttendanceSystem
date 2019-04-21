@@ -65,9 +65,40 @@ class StudentAttendance extends Component {
         });
     }
 
-    isAttend = () => {
-        toast('success', '已经签到。');
-        console.log('已经签到。');
+    /**
+     * 签到。
+     * @author Tinybo
+     * @date 2019 04 21
+     * @memberof StudentAttendance
+     */
+    isAttend = (data) => {
+        const { actions } = this.props;
+
+        let name = localStorage.getItem('name');
+        let userId = localStorage.getItem('userId');
+        let num = localStorage.getItem('num');
+        let college = localStorage.getItem('college');
+        let department = localStorage.getItem('department');
+        let major = localStorage.getItem('major');
+        let grade = localStorage.getItem('grade');
+        let Class = localStorage.getItem('class');
+        let phone = localStorage.getItem('phone');
+
+        actions.signIn({
+            course_id: data.id,
+            userId: userId,
+            tea_id: data.tea_id,
+            tea_name: data.tea_name,
+            name: name,
+            course_name: data.name,
+            num: num,
+            college: college,
+            department: department,
+            major: major,
+            grade: grade,
+            class: Class,
+            phone: phone
+        });
     }
 
     /**
@@ -79,7 +110,7 @@ class StudentAttendance extends Component {
     showCourse = (data) => {
         switch (data.isFinish) {
             case 0: return (
-                <CourseCard data={ data } buttonText=" 签 到 " buttonCallback={ this.isAttend } />
+                <CourseCard data={ data } buttonText=" 签 到 " buttonCallback={ this.isAttend.bind(this, data.id) } />
             ); break;
             case 1: return (
                 <CourseCard data={ data } iconImg={ HasAttend } />
