@@ -21,8 +21,10 @@ class CourseCard extends Component {
             3: '#c5c8ce'
         };
 
+        console.log(this.props);
+
         return (
-            <div className="attendCardContainer" style={{ border: '2px solid ' + oriColor[data.isFinish] }} >
+            <div className="attendCardContainer" style={{ border: '2px solid ' + oriColor[data.isFinish] }}>
                 <div className="top">
                     <span onClick={ onClick }>{ data.name }</span>
                     {
@@ -36,8 +38,10 @@ class CourseCard extends Component {
                     }
                 </div>
                 <div className="bottom" onClick={ onClick }>
+                    <span className="text">课程ID：{ data.id }</span>
+                    <span className="text">教师工号：{ data.num }</span>
                     <span className="text">任课老师：{ data.tea_name }</span>
-                    <span className="text">工号：{ data.num }</span>
+                    <span className="text">上课地点：{ data.address }</span> 
                 </div>
                 <span className="time" onClick={ onClick }>{ dateFormat(data.createTime) }</span>
             </div>

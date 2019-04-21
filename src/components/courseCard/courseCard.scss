@@ -7,12 +7,17 @@
     justify-content: center;
     border-radius: 5px;
     padding: 3px 15px 20px;
+    margin-bottom: 20px;
 
     .top {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+
+        img {
+            margin-right: -10px;
+        }
 
         span {
             font-size: 16px;
