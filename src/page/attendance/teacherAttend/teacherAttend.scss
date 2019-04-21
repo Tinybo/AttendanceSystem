@@ -1,20 +1,29 @@
 @import '../../../common/colors.scss';
 
-.teaAttendContainer {
+.teaAttendContainer1 {
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
 
     header {
+        height: 55px;
 
+        .labelContainer {
+            position: relative;
+            z-index: 2;
+        }
     }
 
     main {
-        flex:1;
-        overflow:auto;
-        -webkit-overflow-scrolling:touch;
+        flex: 1;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
         margin-top: 20px;
+
+        .empty {
+            height: 40px;
+        }
 
         .formPerfect {
             width: 100%;

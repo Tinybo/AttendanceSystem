@@ -283,13 +283,14 @@ class TeacherAttendance extends Component {
         console.log('用户类型：', type);
 
         return (
-            <div className="teaAttendContainer">
+            <div className="teaAttendContainer1">
                 <header>
                     <Header btnText="返回" callback={ this.back } />
                     <NavLabel text="填写课堂表" />
                 </header>
 
                 <main>
+                    <div className="empty"></div>
                     <UserForm {...fields} onChange={this.handleFormChange} putValidate={this.putValidate} userType={ type } />
                 </main>
 

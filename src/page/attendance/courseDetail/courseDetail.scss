@@ -1,13 +1,18 @@
 @import '../../../common/colors.scss';
 
-.teaAttendContainer {
+.courseDetailContainer {
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
 
     header {
+        height: 55px;
 
+        .labelContainer {
+            position: relative;
+            z-index: 2;
+        }
     }
 
     main {
@@ -15,7 +20,11 @@
         overflow:auto;
         -webkit-overflow-scrolling:touch;
         margin-top: 20px;
-        padding: 5px 20px;
+        padding: 5px 10px;
+
+        .empty {
+            height: 40px;
+        }
         
         .createContainer {
             background: $primary;
@@ -38,6 +47,6 @@
 
     footer {
         width: 100%;
-        height: 0;
+        height: 1px;
     }
 }

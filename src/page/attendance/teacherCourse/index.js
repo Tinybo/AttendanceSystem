@@ -73,7 +73,10 @@ class TeacherCourse extends Component {
      */
     toDetail = (data) => {
         console.log('进来了。');
-        hashHistory.push('/attendance/courseDetail');
+        hashHistory.push({
+            pathname: '/attendance/courseDetail',
+            query: data
+        });
     }
 
     /**
@@ -99,8 +102,6 @@ class TeacherCourse extends Component {
     render () {
         const { allCourse } = this.props.teacherCourse;
 
-        console.log('allCourse', allCourse);
-
         return (
             <div className="teaAttendContainer">
                 <header>
@@ -109,6 +110,7 @@ class TeacherCourse extends Component {
                 </header>
 
                 <main>
+                    <div className="empty"></div>
                     <div className="createContainer animated fadeInRight" onClick={ this.newCreate }>
                         <Icon type="plus" style={{ color: 'white' }} />
                     </div>
