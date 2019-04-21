@@ -1,0 +1,19 @@
+@import '../../common/colors.scss';
+
+.courseInfoContainer {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+
+    .item {
+        margin: 5px;
+
+        .label {
+            color: $title;
+        }
+
+        .content {
+            color: $content;
+        }
+    }
+}
