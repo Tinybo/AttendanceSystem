@@ -21,8 +21,6 @@ class CourseCard extends Component {
             3: '#c5c8ce'
         };
 
-        console.log(this.props);
-
         return (
             <div className="attendCardContainer" style={{ border: '2px solid ' + oriColor[data.isFinish] }}>
                 <div className="top">
