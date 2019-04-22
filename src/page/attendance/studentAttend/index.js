@@ -74,7 +74,7 @@ class StudentAttendance extends Component {
     isAttend = (data) => {
         const { actions } = this.props;
 
-        let name = localStorage.getItem('name');
+        let name = localStorage.getItem('userName');
         let userId = localStorage.getItem('userId');
         let num = localStorage.getItem('num');
         let college = localStorage.getItem('college');
@@ -110,7 +110,7 @@ class StudentAttendance extends Component {
     showCourse = (data) => {
         switch (data.isFinish) {
             case 0: return (
-                <CourseCard data={ data } buttonText=" 签 到 " buttonCallback={ this.isAttend.bind(this, data.id) } />
+                <CourseCard data={ data } buttonText=" 签 到 " buttonCallback={ this.isAttend.bind(this, data) } />
             ); break;
             case 1: return (
                 <CourseCard data={ data } iconImg={ HasAttend } />

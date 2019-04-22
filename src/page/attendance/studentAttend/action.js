@@ -73,11 +73,11 @@ export function signIn (data) {
             success: (res) => {
                 console.log('签到接口调用成功：', res)
                 if (res.code != '404') {
+                    toast('success', '签到成功！');
                     dispatch({
                         type: SIGN_IN,
                         data: {
-                            isSign: true,
-                            courseData: res.data
+                            isSign: true
                         }
                     });
                 } else {
