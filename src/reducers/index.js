@@ -13,6 +13,7 @@ import studentAttend from '../page/attendance/studentAttend/reducer';
 import teacherAttend from '../page/attendance/teacherAttend/reducer';
 import teacherCourse from '../page/attendance/teacherCourse/reducer';
 import courseDetail from '../page/attendance/courseDetail/reducer';
+import studentInfo from '../components/studentInfo/reducer';
 
 
 // 合并所有的reducer
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
     teacherAttend,
     teacherCourse,
     courseDetail,
+    studentInfo,
     routing: routerReducer
 });
 
