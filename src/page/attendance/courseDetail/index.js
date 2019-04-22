@@ -57,7 +57,6 @@ class CourseDetail extends Component {
      */
     back = () => {
         hashHistory.push('/attendance/teacherCourse');
-        console.log('已经点击返回了。');
     }
 
     /**

@@ -282,8 +282,6 @@ class PerfectInfo extends Component {
         let UserForm = this.PerfectInfoForm;
         let type = localStorage.getItem('type');
 
-        console.log('用户类型：', type);
-
         return (
             <div className="perfectContainer">
                 <header>

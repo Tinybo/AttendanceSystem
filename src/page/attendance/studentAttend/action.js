@@ -7,6 +7,7 @@ import { host } from '../../../common/hosts';
 
 export const SEARCH_COURSE = "SEARCH_COURSE";
 export const SIGN_IN  = "SIGN_IN";
+export const EMPTY_DATA = "EMPTY_DATA";
 
 /**
  * 完成课堂搜索操作。
@@ -103,3 +104,22 @@ export function signIn (data) {
         });
     }
 }
+
+/**
+ * 清空历史数据。
+ * @author Tinybo
+ * @date 2019 04 22
+ * @param {*} data 需要保存的数据。
+ */
+export function emptyData (data) {
+    return (dispatch, getState) => {
+        dispatch({
+            type: EMPTY_DATA,
+            data: {
+                courseData: {}
+            }
+        });
+    }
+}
+                    
+

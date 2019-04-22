@@ -342,7 +342,6 @@ class Leave extends Component {
      */
     back = () => {
         hashHistory.push('/home');
-        console.log('已经点击返回了。');
     }
 
     render () {
@@ -350,8 +349,6 @@ class Leave extends Component {
         let UserForm = this.PerfectInfoForm;
         // const { type } = this.props.login;
         let type = localStorage.getItem('type');
-
-        console.log('用户类型：', type);
 
         return (
             <div className="leaveContainer">

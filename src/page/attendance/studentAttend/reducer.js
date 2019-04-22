@@ -14,6 +14,8 @@ export default function courseStudent (state = initData, action) {
             return Object.assign({}, state, action.data);
         case actions.SIGN_IN:
             return Object.assign({}, state, action.data);
+        case actions.EMPTY_DATA:
+            return Object.assign({}, state, action.data);
         default:
             return state;
     }

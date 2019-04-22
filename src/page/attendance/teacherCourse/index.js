@@ -52,7 +52,6 @@ class TeacherCourse extends Component {
      */
     back = () => {
         hashHistory.push('/home');
-        console.log('已经点击返回了。');
     }
 
     /**

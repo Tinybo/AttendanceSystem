@@ -32,6 +32,12 @@ class StudentAttendance extends Component {
         }
     }
 
+    componentWillUnmount () {
+        const { actions } = this.props;
+
+        actions.emptyData();
+    }
+
     submit = () => {
         console.log('提交课堂表。');
     }
@@ -44,7 +50,6 @@ class StudentAttendance extends Component {
      */
     back = () => {
         hashHistory.push('/home');
-        console.log('已经点击返回了。');
     }
 
     /**
@@ -123,7 +128,7 @@ class StudentAttendance extends Component {
     }
 
     render () {
-        const { courseData } = this.props.studentAttend
+        const { courseData } = this.props.studentAttend;
 
         return (
             <div className="stuAttendContainer">

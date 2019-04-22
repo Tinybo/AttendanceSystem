@@ -75,7 +75,6 @@ class TeacherAttendance extends Component {
      */
     back = () => {
         hashHistory.push('/attendance/teacherCourse');
-        console.log('已经点击返回了。');
     }
 
     /**
@@ -279,8 +278,6 @@ class TeacherAttendance extends Component {
         const fields = this.state.fields;
         let UserForm = this.PerfectInfoForm;
         let type = localStorage.getItem('type');
-
-        console.log('用户类型：', type);
 
         return (
             <div className="teaAttendContainer1">
