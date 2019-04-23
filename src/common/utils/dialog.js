@@ -11,24 +11,28 @@ import { Modal } from 'antd';
 export function dialog (data) {
     switch (data.type) {
         case 'info': Modal.info({
+            visible: data.visible ? data.visible : true,
             title: data.title,
             content: data.content,
             okText: data.okText,
             onOk: data.callback
         }); break;
         case 'success': Modal.success({
+            visible: data.visible ? data.visible : true,
             title: data.title,
             content: data.content,
             okText: data.okText,
             onOk: data.callback
         }); break;
         case 'warning': Modal.warning({
+            visible: data.visible ? data.visible : true,
             title: data.title,
             content: data.content,
             okText: data.okText,
             onOk: data.callback
         }); break;
         case 'error': Modal.error({
+            visible: data.visible ? data.visible : true,
             title: data.title,
             content: data.content,
             okText: data.okText,
