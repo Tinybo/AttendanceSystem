@@ -15,7 +15,6 @@ import teacherCourse from '../page/attendance/teacherCourse/reducer';
 import courseDetail from '../page/attendance/courseDetail/reducer';
 import studentInfo from '../components/studentInfo/reducer';
 
-
 // 合并所有的reducer
 const rootReducer = combineReducers({
     login,
