@@ -118,6 +118,21 @@ class StudentInfo extends Component {
         });
     }
 
+    refreshData = () => {
+        const { actions, data } = this.props;
+
+        let temp = this.state.currentClass.split('-');
+        actions.getAllStudent({
+            course_id: data.id,
+            college: temp[0],
+            department: temp[1],
+            major: temp[2],
+            grade: temp[3],
+            class: temp[4]
+        });
+        toast('success', '数据刷新成功！');
+    }
+
     /**
      * 展示操作按钮。
      * @author Tinybo
@@ -283,7 +298,7 @@ class StudentInfo extends Component {
                         </div>
                     </div>
 
-                    <div className="editBtn">编辑统计信息</div>
+                    <div className="editBtn" onClick={ this.refreshData }>刷新数据</div>
                 </div>
 
                 <hr/>
