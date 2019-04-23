@@ -71,23 +71,13 @@ class CourseDetail extends Component {
     }
 
     /**
-     * 显示课堂信息。
+     * 刷新统计数据。
      * @author Tinybo
-     * @date 2019 04 20
-     * @memberof StudentAttendance
+     * @date 2019 04 23
+     * @memberof CourseDetail
      */
-    showCourse = (data) => {
-        /* return data.map((x, index) => {
-            switch (x.isFinish) {
-                case 0: return (
-                    <CourseCard key={ index } data={ x } iconImg={ Attending } callback={ this.toDetail } />
-                ); break;
-                case 1: return (
-                    <CourseCard key={ index } data={ x } iconImg={ Ending } callback={ this.toDetail } />
-                ); break;
-                default: break;
-            }
-        }) */
+    freshStatistic = (data) => {
+        
     }
 
     render () {
@@ -107,7 +97,7 @@ class CourseDetail extends Component {
                             <CourseInfo data={ data } />
                         </Panel>
                         <Panel header="学生信息" key="2">
-                            <StudentInfo data={ data } />
+                            <StudentInfo data={ data } freshStatistic={ this.freshStatistic } />
                         </Panel>
                         
                     </Collapse>
