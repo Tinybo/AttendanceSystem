@@ -132,5 +132,3 @@ export default connect(
         actions: bindActionCreators(actions, dispatch)
     })
 )(TeacherCourse);
-
-// <button className="create" >新建课堂</button>
