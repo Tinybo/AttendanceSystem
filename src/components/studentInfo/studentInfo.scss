@@ -64,6 +64,14 @@
                 padding: 10px 0 10px 10px;
                 border-bottom: 1px solid $background;
             }
+
+            .operationBtn {
+                border: 1px solid $primary;
+                border-radius: 5px;
+                text-align: center;
+                margin-right: 10px;
+                width: 50px;
+            }
         }
 
         .name {
@@ -83,6 +91,10 @@
         margin: 5px 1px;
     }
 
+    .status { 
+        margin-top: 5px;
+    }
+
     .item {
         margin: 5px;
 
@@ -95,5 +107,42 @@
         }
     }
 
-
+    .ant-radio-wrapper { 
+        margin: 5px 0 5px;
+    }
 }
+
+.setStatus {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    button {
+        width: 40%;
+        padding: 10px;
+        color: white;
+        outline: none;
+        border-radius: 5px;
+        margin: 10px auto;
+        font-size: 16px;
+    }
+
+    button:nth-child(1) {
+        background: $primary;
+        border: 1px solid $primary;
+    }
+    button:nth-child(2) {
+        background: $success;
+        border: 1px solid $success;
+    }
+    button:nth-child(3) {
+        background: $warning;
+        border: 1px solid $warning;
+    }
+    button:nth-child(4) {
+        background: $error;
+        border: 1px solid $error;
+    }
+}
+

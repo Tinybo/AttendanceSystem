@@ -5,9 +5,15 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from './action';
 
+import { Modal } from 'antd';
+
 import { hashHistory } from 'react-router';
 import { dateFormat } from '../../common/utils/dateFormat';
-import { Select } from 'antd';
+import { dialog } from '../../common/utils/dialog';
+import { toast } from '../../common/utils/toast';
+import { Select, Radio } from 'antd';
+
+const RadioGroup = Radio.Group;
 const Option = Select.Option;
 
 /**
@@ -20,15 +26,12 @@ class StudentInfo extends Component {
         super();
 
         this.state = {
-            colleges: [],       // 所有大学
-            departments: [],    // 所有系别
-            majors: [],         // 所有专业
-            grades: [],         // 所有年级
-            Classs: [],         // 所有班级
-            department: '',     // 当前选择的系别
-            major: '',          // 当前选择的专业
-            grade: '',          // 当前选择的年级
-            Class: ''           // 当前选择的班级
+            college: '',        // 学校
+            currentClass: '',   // 当前展示班级
+            classes: [],        // 所有班级
+            visible: true,
+            currentValue: 0,
+            hasStudent: true,
         }
     }
 
@@ -37,46 +40,51 @@ class StudentInfo extends Component {
         const { data } = this.props;
         let tempData = data.combine_string;
         let tempDataArr = tempData.split(';');
-        let colleges = [];
-        let departments = [];
-        let majors = [];
-        let grades = [];
-        let Class = [];
+        let classes = [];
         
         tempDataArr.forEach(x => {
             if (x != '') {
-                let temp = x.split('-');
-                colleges.push(temp[0]);
-                departments.push(temp[1]);
-                majors.push(temp[2]);
-                grades.push(temp[3]);
-                Class.push(temp[4]);
+                classes.push(x);
             }
         });
 
-        this.setState({
-            colleges: Array.from(new Set(colleges)),
-            departments: Array.from(new Set(departments)),
-            majors: Array.from(new Set(majors)),
-            grades: Array.from(new Set(grades)),
-            Classs: Array.from(new Set(Class)),
-            department: departments[0],
-            major: majors[0],
-            grade: grades[0],
-            Class: Class[0] 
-        })
+        // 判断是否有人签到
+        if (classes == []) {
+            this.setState({ hasStudent: false });
+        } else {
+            this.setState({
+                college: localStorage.getItem('college'),
+                classes: classes,
+                currentClass: classes[0]
+            })
+        }
     }
 
     componentDidMount () {
         const { actions, data } = this.props;
 
+        if (!this.state.classes[0]) {
+            actions.getAllStudent({
+                course_id: data.id,
+                college: '',
+                department: '',
+                major: '',
+                grade: '',
+                class: '',
+            });
+            return;
+        } 
+
+        // 默认获取第一个班级的所有学生信息
+        let Class = this.state.currentClass;
+        let tempClass = Class.split('-');
         actions.getAllStudent({
             course_id: data.id,
-            college: this.state.colleges[0],
-            department: this.state.department,
-            major: this.state.major,
-            grade: this.state.grade,
-            class: this.state.Class
+            college: tempClass[0],
+            department: tempClass[1],
+            major: tempClass[2],
+            grade: tempClass[3],
+            class: tempClass[4]
         });
     }
 
@@ -86,108 +94,192 @@ class StudentInfo extends Component {
      * @date 2019 04 22
      * @memberof StudentInfo
      */
-    handleChange = (value, e) => {
+    handleChange = (e) => {
         const { actions, data } = this.props;
 
-        let department = this.state.department;
-        let major = this.state.major;
-        let grade = this.state.grade;
-        let Class = this.state.Class;
-        
-        if (e.key.indexOf('department') != -1) {
-            department = value;
-            this.setState({ department: value });
-        } else if (e.key.indexOf('major') != -1) {
-            major = value;
-            this.setState({ major: value });
-        } else if (e.key.indexOf('grade') != -1) {
-            grade = value;
-            this.setState({ grade: value });
-        } else if (e.key.indexOf('class') != -1) {
-            Class = value;
-            this.setState({ Class: value });
-        }
+        let index = e.target.value;
+        let value = this.state.classes[index];
 
+        this.setState({
+            currentClass: value,
+            currentValue: index
+        });
+
+        let temp = value.split('-');
+
+        // 获取所选班级的学生信息
         actions.getAllStudent({
             course_id: data.id,
-            college: this.state.colleges[0],
-            department: department,
-            major: major,
-            grade: grade,
-            class: Class
+            college: temp[0],
+            department: temp[1],
+            major: temp[2],
+            grade: temp[3],
+            class: temp[4]
         });
+    }
+
+    /**
+     * 展示操作按钮。
+     * @author Tinybo
+     * @date 2019 04 23
+     * @memberof StudentInfo
+     */
+    showOperation = (data) => {
+        let chooseColor = {
+            1: '已签到',
+            2: '#2d8cf0',
+            3: '#19be6b',
+            4: '#ff9900',
+            5: '#ed4014'
+        }
+        let chooseStatus = {
+            0: '操作',
+            1: '已签到',
+            2: '请假',
+            3: '迟到',
+            4: '早退',
+            5: '旷课'
+        }
+        let text = chooseStatus[data.status] || '无';
+
+        if (data.status == 0) {
+            return (
+                <span className="operation operationBtn" style={{ color: '#2d8cf0' }} onClick={ this.openSetStatus.bind(this, data) }>{ text }</span>
+            );
+        }
+        return (
+            <span className="operation" style={{ color: chooseColor[data.status] }}>{ text }</span>
+        );
+    }
+
+    /**
+     * 打开设置学生按钮弹框。
+     * @author Tinybo
+     * @date 2019 04 23
+     * @memberof StudentInfo
+     */
+    openSetStatus = (data) => {
+        dialog({
+            type: 'info',
+            title: '设置学生到课状态',
+            visible: this.state.visible,
+            content: (
+                <div className="setStatus" style={{ marginTop: '15px' }}>
+                    <button onClick={ this.setStatus.bind(this, 2, data) }>请假</button>
+                    <button onClick={ this.setStatus.bind(this, 3, data) }>迟到</button>
+                    <button onClick={ this.setStatus.bind(this, 4, data) }>早退</button>
+                    <button onClick={ this.setStatus.bind(this, 5, data) }>旷课</button>
+                </div>
+            ),
+            okText: '取 消',
+            callback: () => {
+                // toast('success', '告知成功！');
+            }
+        });
+    }
+
+    /**
+     * 提交学生到课状态。
+     * @author Tinybo
+     * @date 2019 04 23
+     * @memberof StudentInfo
+     */
+    setStatus = async (status, data) => {
+        // toast('success', '学生状态设置成功');
+        const { actions } = this.props;
+
+        await actions.setStudentStatus({
+            status: status,
+            stu_id: data.userId,
+            course_id: data.course_id,
+
+            course_name: data.course_name,
+            num: data.num,
+            college: data.college,
+            department: data.department,
+            phone: data.phone,
+            createTime: data.createTime,
+            major: data.major,
+            grade: data.grade,
+            class: data.class,
+        });
+        console.log('开始设置学生状态了。', status, data);
+        // 默认获取第一个班级的所有学生信息
+        let temp = this.state.currentClass.split('-');
+        setTimeout(async () => {
+            await actions.getAllStudent({
+                course_id: data.course_id,
+                college: temp[0],
+                department: temp[1],
+                major: temp[2],
+                grade: temp[3],
+                class: temp[4]
+            });
+        }, 100);
+
+        Modal.destroyAll();
+    }
+
+    /**
+     * 渲染班级选项。
+     * @author Tinybo
+     * @date 2019 04 23
+     * @memberof StudentInfo
+     */
+    renderChoose = (data) => {
+        let temp = data.split('-');
+        temp.shift();  // 删除第一个数据
+        return temp.join(' · ');
     }
 
     render () {
         const { data } = this.props;
+        const { shouldNum, realNum, lateNum, leaveEarlyNum, truancyNum, askLeaveNum, unSignInNum } = this.props.studentInfo;
         const { allStudent } = this.props.studentInfo;
-
-        console.log('这就是所有学生：', allStudent);
 
         return (
             <div className="studentInfoContainer">
                 <div className="chooseInfo">
-                    <Select defaultValue={ this.state.department } ref="department" onChange={ this.handleChange }>
+                    <RadioGroup onChange={ this.handleChange } value={ this.state.currentValue }>
                         {
-                            this.state.departments.map((x, index) => {
+                            this.state.classes.map((x, index) => {
                                 return (
-                                    <Option key={ x + index + 'department' } value={ x }>{ x }</Option>
+                                    <Radio value={ index } key={ x + index }>{ this.renderChoose(x) }</Radio>
                                 );
                             })
                         }
-                    </Select>
-                    <Select defaultValue={ this.state.major } onChange={ this.handleChange }>
-                        {
-                            this.state.majors.map((x, index) => {
-                                return (
-                                    <Option key={ x + index + 'major' } value={ x }>{ x }</Option>
-                                );
-                            })
-                        }
-                    </Select>
-                    <Select defaultValue={ this.state.grade } onChange={ this.handleChange }>
-                        {
-                            this.state.grades.map((x, index) => {
-                                return (
-                                    <Option key={ x + index + 'grade' } value={ x }>{ x }</Option>
-                                );
-                            })
-                        }
-                    </Select>
-                    <Select defaultValue={ this.state.Class } onChange={ this.handleChange }>
-                        {
-                            this.state.Classs.map((x, index) => {
-                                return (
-                                    <Option key={ x + index + 'class' } value={ x }>{ x }</Option>
-                                );
-                            })
-                        }
-                    </Select>
-
+                    </RadioGroup>
+                    {
+                        this.state.classes[0] ? '' : (<p style={{ textAlign: 'center' }}>暂无班级加入！</p>)
+                    }   
                     <div className="status">
                         <div className="item">
                             <span className="label">应到人数：</span>
-                            <span className="content">{ data.should_num }</span>
+                            <span className="content">{ shouldNum }</span>
                         </div>
                         <div className="item">
                             <span className="label">实到人数：</span>
-                            <span className="content">{ data.real_num }</span>
+                            <span className="content">{ realNum }</span>
                         </div>
                         <div className="item">
                             <span className="label">请假人数：</span>
-                            <span className="content">{ data.ask_leave_num }</span>
+                            <span className="content">{ askLeaveNum }</span>
                         </div>
                         <div className="item">
                             <span className="label">迟到人数：</span>
-                            <span className="content">{ data.late_num }</span>
+                            <span className="content">{ lateNum }</span>
                         </div>
                         <div className="item">
                             <span className="label">旷课人数：</span>
-                            <span className="content">{ data.truancy_num }</span>
+                            <span className="content">{ truancyNum }</span>
                         </div>
                         <div className="item">
                             <span className="label">早退人数：</span>
-                            <span className="content">{ data.leave_early_num }</span>
+                            <span className="content">{ leaveEarlyNum }</span>
+                        </div>
+                        <div className="item">
+                            <span className="label">未签到人数：</span>
+                            <span className="content">{ unSignInNum }</span>
                         </div>
                     </div>
 
@@ -209,7 +301,7 @@ class StudentInfo extends Component {
                                     <div key={ x + index }>
                                         <span className="name">{ x.stu_name }</span>
                                         <span className="num">{ x.num }</span>
-                                        <span className="operation">{ x.status }</span>
+                                        { this.showOperation(x) }
                                     </div>
                                 );
                             })
