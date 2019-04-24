@@ -7,6 +7,7 @@ import { host } from '../../common/hosts';
 
 export const GET_ALL_STUDENT = "GET_ALL_STUDENT";
 export const SET_STUDENT_STATUS = "SET_STUDENT_STATUS";
+export const END_COURSE = "END_COURSE";
 
 /**
  * 完成获取某堂课的所有学生信息操作。
@@ -60,8 +61,6 @@ export function getAllStudent (data) {
                             isFinish: true,
                         }
                     });
-
-                    console.log('某堂课学生信息:', res);
                 } else {
                     toast('error', '某堂课学生信息获取失败！');
                     dispatch({
@@ -128,6 +127,55 @@ export function setStudentStatus (data) {
                 console.log('设置学生到课接口调用失败：', err);
                 dispatch({
                     type: SET_STUDENT_STATUS,
+                    data: {
+                        isFinish: true
+                    }
+                });
+            }
+        });
+        
+    }
+}
+
+
+/**
+ * 结束课堂。
+ * @author Tinybo
+ * @date 2019 04 24
+ * @param {*} data 需要保存的数据。
+ */
+export function endCourse (data) {
+    return (dispatch, getState) => {
+        // 调用后台登录接口。
+        $.post({
+            url: host + '/endCourse',
+            dataType: 'json',
+            data: data,
+            success: (res) => {
+                console.log('结束课堂接口调用成功：', res)
+                if (res.code != '404') {
+                    toast('success', '结束课堂成功!');
+                    dispatch({
+                        type: END_COURSE,
+                        data: {
+                            isFinish: true,
+                        }
+                    });
+                } else {
+                    toast('error', '结束课堂失败！');
+                    dispatch({
+                        type: END_COURSE,
+                        data: {
+                            isFinish: true
+                        }
+                    });
+                }
+            },
+            error: (err) => {
+                toast('error', '结束课堂失败！');
+                console.log('结束课堂接口调用失败：', err);
+                dispatch({
+                    type: END_COURSE,
                     data: {
                         isFinish: true
                     }

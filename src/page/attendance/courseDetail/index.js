@@ -97,7 +97,7 @@ class CourseDetail extends Component {
                             <CourseInfo data={ data } />
                         </Panel>
                         <Panel header="学生信息" key="2">
-                            <StudentInfo data={ data } freshStatistic={ this.freshStatistic } />
+                            <StudentInfo data={ data } back={ this.back } freshStatistic={ this.freshStatistic } />
                         </Panel>
                         
                     </Collapse>

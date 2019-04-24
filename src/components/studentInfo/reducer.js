@@ -20,6 +20,8 @@ export default function studentInfo (state = initData, action) {
             return Object.assign({}, state, action.data);
         case actions.SET_STUDENT_STATUS:
             return Object.assign({}, state, action.data);
+        case actions.END_COURSE:
+            return Object.assign({}, state, action.data);
         default:
             return state;
     }

@@ -118,6 +118,12 @@ class StudentInfo extends Component {
         });
     }
 
+    /**
+     * 刷新数据。
+     * @author Tinybo
+     * @date 2019 04 24
+     * @memberof StudentInfo
+     */
     refreshData = () => {
         const { actions, data } = this.props;
 
@@ -247,6 +253,28 @@ class StudentInfo extends Component {
         return temp.join(' · ');
     }
 
+    /**
+     * 结束课堂。
+     * @author Tinybo
+     * @date 2019 04 24
+     * @memberof StudentInfo
+     */
+    endCourse = () => {
+        // 没签到的同学算旷课
+        const { actions, back } = this.props;
+        const { allStudent } = this.props.studentInfo;
+        let course_id = allStudent[0].course_id;
+
+        actions.endCourse({
+            course_id: course_id
+        });
+
+        // 刷新数据
+        setTimeout(() => {
+            back();
+        }, 1000);
+    }
+
     render () {
         const { data } = this.props;
         const { shouldNum, realNum, lateNum, leaveEarlyNum, truancyNum, askLeaveNum, unSignInNum } = this.props.studentInfo;
@@ -298,7 +326,10 @@ class StudentInfo extends Component {
                         </div>
                     </div>
 
-                    <div className="editBtn" onClick={ this.refreshData }>刷新数据</div>
+                    <div className="editBtns" style={{ display: data.isFinish == 0 ? 'flex' : 'none' }}>
+                        <span onClick={ this.refreshData }>刷新数据</span>
+                        <span className="endBtn" onClick={ this.endCourse }>结束课堂</span>
+                    </div>
                 </div>
 
                 <hr/>

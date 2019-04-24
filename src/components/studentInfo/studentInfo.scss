@@ -30,11 +30,23 @@
             }
         }
 
-        .editBtn {
+        .editBtns {
             width: 100%;
             margin-top: 10px;
-            color: $primary;
-            text-align: center;
+            display: flex;
+            flex-direction: row;
+
+            span {
+                flex: 1;
+                text-align: center;
+                color: $error;
+            }
+
+            span:nth-child(1) {
+                color: $primary;
+            }
+
+        
         }
     }
 
