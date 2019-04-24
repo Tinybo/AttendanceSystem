@@ -16,7 +16,7 @@ class CourseCard extends Component {
         const { data, iconImg, onClick, buttonText, buttonCallback } = this.props;
         let oriColor = {
             0: '#2d8cf0',
-            1: '#19be6b',
+            1: '#c5c8ce',
             2: '#ed4014',
             3: '#c5c8ce'
         };
