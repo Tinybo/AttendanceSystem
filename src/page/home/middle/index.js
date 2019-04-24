@@ -144,7 +144,7 @@ class Middle extends Component {
                 <Nav callback={ this.shiftPage } />
                 <main>
                     <StickyContainer>
-                        <Tabs defaultActiveKey="2" renderTabBar={renderTabBar}>
+                        <Tabs defaultActiveKey="1" renderTabBar={renderTabBar}>
                             <TabPane tab={<span><Icon type="file-text" />请假记录</span>} key="1">
                                 { this.renderLeaveRecord() }
                             </TabPane>
