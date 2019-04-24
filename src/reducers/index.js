@@ -14,6 +14,7 @@ import teacherAttend from '../page/attendance/teacherAttend/reducer';
 import teacherCourse from '../page/attendance/teacherCourse/reducer';
 import courseDetail from '../page/attendance/courseDetail/reducer';
 import studentInfo from '../components/studentInfo/reducer';
+import courseCard from '../components/courseCard/reducer';
 
 // 合并所有的reducer
 const rootReducer = combineReducers({
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
     teacherCourse,
     courseDetail,
     studentInfo,
+    courseCard,
     routing: routerReducer
 });
 

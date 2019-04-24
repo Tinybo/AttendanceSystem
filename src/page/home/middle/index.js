@@ -9,6 +9,8 @@ import Nav from '../nav';
 import { Tabs, Icon, Timeline } from 'antd';
 import { StickyContainer, Sticky } from 'react-sticky';
 import LeaveCard from '../../../components/leaveCard';
+import LeaveStatistic from '../../../components/leaveStatistic';
+import AttendStatistic from '../../../components/attendStatistic';
 
 import SuccessIcon from '../../../common/images/checkPass.png';
 import FailIcon from '../../../common/images/failed.png';
@@ -64,6 +66,12 @@ class Middle extends Component {
             userId: userId,
             type: type
         });
+
+        // 获取考勤的统计信息
+        actions.getStatistic({
+            type: type,
+            userId: userId
+        });
     }
 
     /**
@@ -95,7 +103,6 @@ class Middle extends Component {
                 dataTemp.push(leaveNoteData[i]);
             }
         }
-        console.log('请假条：', leaveNoteData);
 
         return (
             <div className="recordContainer" >
@@ -130,17 +137,20 @@ class Middle extends Component {
     }
 
     render () {
+        const { leaveNoteData, attendData } = this.props.middle;
+
         return (
             <div className="middleContainer">
                 <Nav callback={ this.shiftPage } />
                 <main>
                     <StickyContainer>
-                        <Tabs defaultActiveKey="1" renderTabBar={renderTabBar}>
+                        <Tabs defaultActiveKey="2" renderTabBar={renderTabBar}>
                             <TabPane tab={<span><Icon type="file-text" />请假记录</span>} key="1">
                                 { this.renderLeaveRecord() }
                             </TabPane>
                             <TabPane tab={<span><Icon type="pie-chart" />数据统计</span>} key="2">
-                                Tab 2
+                                <LeaveStatistic data={ leaveNoteData } />
+                                <AttendStatistic data={ attendData } />
                             </TabPane>
                         </Tabs>
                     </StickyContainer>

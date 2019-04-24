@@ -99,7 +99,7 @@ class Right extends Component {
                                 <DetailItem label="学号" value={ this.state.num } />
                                 <DetailItem label="专业" value={ this.state.major } />
                                 <DetailItem label="年级" value={ this.state.grade } />
-                                <DetailItem label="班级" value={ this.state.Class } />
+                                <DetailItem label="班级" value={ this.state.class } />
                                 <DetailItem label="职位" value={ this.state.position } />
                             </div>
                         ) : (

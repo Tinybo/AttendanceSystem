@@ -13,10 +13,10 @@ class NavLabel extends Component {
     }
 
     render () {
-        const { text, imgUrl } = this.props;
+        const { text, imgUrl, background } = this.props;
 
         return (
-            <div className="labelContainer">
+            <div className="labelContainer" style={{ background: background ? background : '' }}>
                 <img src={ Arrow } alt="label" width="20" height="20" />
                 <span>{ text }</span>
             </div>
