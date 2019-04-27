@@ -15,12 +15,12 @@ export const EMPTY_DATA = "EMPTY_DATA";
 export function getCourseInfo (data) {
     return (dispatch, getState) => {
         // 调用后台学生到课信息接口。
-        console.log('这就是学生到课信息数据:', data);
         $.post({
             url: host + '/getCourseInfo',
             dataType: 'json',
             data: data,
             success: (res) => {
+                console.log('返回结果了res', res);
                 if (res.code != '404') {
                     dispatch({
                         type: GET_STU_INFO,

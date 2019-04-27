@@ -24,10 +24,12 @@ class CourseCard extends Component {
         super();
     }
 
-    componentWillMount () {
+    /* componentDidMount () {
         const { actions, data } = this.props;
         let userId = localStorage.getItem('userId');
         let type = localStorage.getItem('type');
+
+        console.log('搜索了一次：');
 
         if (type == 1) {
             // 获取学生的到课信息
@@ -36,7 +38,7 @@ class CourseCard extends Component {
                 stu_id: userId
             });
         }  
-    }
+    } */
 
     // 清空历史数据
     componentWillUnmount () {
@@ -46,10 +48,10 @@ class CourseCard extends Component {
     }
 
     render () {
-        const { data, iconImg, onClick, buttonText, buttonCallback } = this.props;
-        const { courseData } = this.props.courseCard;
+        const { data, iconImg, onClick, buttonText, buttonCallback, userInfo } = this.props;
+        // const { courseData } = this.props.courseCard;
 
-        console.log('我的到课数据：', courseData);
+        // console.log('我的到课数据：', courseData);
 
         let oriColor = {
             0: '#2d8cf0',
@@ -58,7 +60,7 @@ class CourseCard extends Component {
             3: '#c5c8ce'
         };
 
-        let imgUrl = {
+        let imgUrlStu = {
             1: Success,
             2: Leave,
             3: Late,
@@ -66,32 +68,28 @@ class CourseCard extends Component {
             5: Truancy
         }
 
-        let imgUrl2 = {
+        let imgUrlTea = {
             0: Attending,
             1: Ending
         }
 
-        let imgUrlAddress = '';
-        if (courseData.status) {
-            console.log('进来了');
-            imgUrlAddress = imgUrl[courseData.status];
-        } else {
-            imgUrlAddress = imgUrl2[data.isFinish];
-        }
+        const type = localStorage.getItem('type');
 
-        let status = courseData.status || data.isFinish;
+        // console.log('userInfo', userInfo);
+
+        let imgUrl = type == 1 ? imgUrlStu[userInfo.status] : imgUrlTea[data.isFinish];
 
         return (
             <div className="attendCardContainer" style={{ border: '2px solid ' + oriColor[data.isFinish] }}>
                 <div className="top">
                     <span onClick={ onClick }>{ data.name }</span>
                     {
-                        (buttonText && status == 0) ?
+                        (type == 1 && data.isFinish == 0 && userInfo.status == 0) ?
                         (
                             <button onClick={() => { buttonCallback(data.userId, data.id) }}>{ buttonText }</button>
                         ) : 
                         (
-                            <img src={ imgUrlAddress } alt="logo" width="50" height="50" />
+                            <img src={ imgUrl } alt="logo" width="50" height="50" />
                         )
                     }
                 </div>

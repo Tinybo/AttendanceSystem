@@ -18,7 +18,6 @@ export const EMPTY_DATA = "EMPTY_DATA";
 export function searchCourse (data) {
     return (dispatch, getState) => {
         // 调用后台搜索课堂接口。
-        console.log('这就是课堂的数据:', data);
         $.post({
             url: host + '/searchCourse',
             dataType: 'json',
@@ -30,7 +29,8 @@ export function searchCourse (data) {
                         type: SEARCH_COURSE,
                         data: {
                             isFinish: true,
-                            courseData: res.data
+                            courseData: res.data,
+                            userInfo: res.userInfo
                         }
                     });
                 } else {

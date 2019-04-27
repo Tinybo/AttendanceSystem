@@ -64,9 +64,13 @@ class StudentAttendance extends Component {
             return;
         }
 
+        const userId = localStorage.getItem('userId');
+
         const { actions } = this.props;
+
         actions.searchCourse({
-            courseId: id
+            courseId: id,
+            stu_id: userId
         });
     }
 
@@ -112,23 +116,23 @@ class StudentAttendance extends Component {
      * @date 2019 04 20
      * @memberof StudentAttendance
      */
-    showCourse = (data) => {
+    showCourse = (data, userInfo) => {
         switch (data.isFinish) {
             case 0: return (
-                <CourseCard data={ data } buttonText=" 签 到 " buttonCallback={ this.isAttend.bind(this, data) } />
+                <CourseCard data={ data } userInfo={ userInfo } buttonText=" 签 到 " buttonCallback={ this.isAttend.bind(this, data) } />
             ); break;
             case 1: return (
-                <CourseCard data={ data } iconImg={ HasAttend } />
+                <CourseCard data={ data } userInfo={ userInfo } iconImg={ HasAttend } />
             ); break;
             case 2: return (
-                <CourseCard data={ data } iconImg={ NotAttend } />
+                <CourseCard data={ data } userInfo={ userInfo } iconImg={ NotAttend } />
             ); break;
             default: break;
         }
     }
 
     render () {
-        const { courseData } = this.props.studentAttend;
+        const { courseData, userInfo } = this.props.studentAttend;
 
         return (
             <div className="stuAttendContainer">
@@ -145,7 +149,7 @@ class StudentAttendance extends Component {
                     />
 
                     <div className="searchResult animated fadeInUp">
-                        { this.showCourse(courseData) }
+                        { this.showCourse(courseData, userInfo) }
                     </div>
                     
                 </main>

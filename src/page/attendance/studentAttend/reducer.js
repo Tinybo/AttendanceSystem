@@ -5,7 +5,8 @@ import { Object } from '_core-js@3.0.1@core-js';
 const initData = {
     isFinish: false,
     isSign: false,
-    courseData: {}
+    courseData: {},
+    userInfo: {}
 }
 
 export default function courseStudent (state = initData, action) {

@@ -3,7 +3,7 @@ import { Object } from '_core-js@3.0.1@core-js';
 
 // home页的初始化数据
 const initData = {
-    courseData: [],
+    courseData: {},
     isFinish: false
 }
 
