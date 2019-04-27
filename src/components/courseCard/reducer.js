@@ -11,6 +11,8 @@ export default function courseCard (state = initData, action) {
     switch (action.type) {
         case actions.GET_STU_INFO:
             return Object.assign({}, state, action.data);
+        case actions.EMPTY_DATA:
+            return Object.assign({}, state, action.data);
         default:
             return state;
     }

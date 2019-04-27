@@ -4,6 +4,7 @@ import { toast } from '../../common/utils/toast'; // 全局提示
 import { host } from '../../common/hosts';
 
 export const GET_STU_INFO = "GET_STU_INFO";
+export const EMPTY_DATA = "EMPTY_DATA";
 
 /**
  * 获取学生的到课信息。
@@ -50,5 +51,22 @@ export function getCourseInfo (data) {
             }
         });
         
+    }
+}
+
+/**
+ * 清空历史数据。
+ * @author Tinybo
+ * @date 2019 04 27
+ * @param {*} data 需要保存的数据。
+ */
+export function emptyData (data) {
+    return (dispatch, getState) => {
+        dispatch({
+            type: EMPTY_DATA,
+            data: {
+                courseData: {}
+            }
+        });
     }
 }

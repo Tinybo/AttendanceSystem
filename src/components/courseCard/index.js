@@ -11,6 +11,8 @@ import Late from '../../common/images/late.png';
 import Truancy from '../../common/images/truancy.png';
 import Leave from '../../common/images/leaveText.png';
 import Early from '../../common/images/early.png';
+import Attending from '../../common/images/attending.png';
+import Ending from '../../common/images/ending.png';
 
 /**
  * 课堂卡片。
@@ -25,12 +27,22 @@ class CourseCard extends Component {
     componentWillMount () {
         const { actions, data } = this.props;
         let userId = localStorage.getItem('userId');
+        let type = localStorage.getItem('type');
 
-        // 获取学生的到课信息
-        actions.getCourseInfo({
-            course_id: data.id,
-            stu_id: userId
-        });
+        if (type == 1) {
+            // 获取学生的到课信息
+            actions.getCourseInfo({
+                course_id: data.id,
+                stu_id: userId
+            });
+        }  
+    }
+
+    // 清空历史数据
+    componentWillUnmount () {
+        const { actions } = this.props;
+
+        actions.emptyData();
     }
 
     render () {
@@ -54,17 +66,32 @@ class CourseCard extends Component {
             5: Truancy
         }
 
+        let imgUrl2 = {
+            0: Attending,
+            1: Ending
+        }
+
+        let imgUrlAddress = '';
+        if (courseData.status) {
+            console.log('进来了');
+            imgUrlAddress = imgUrl[courseData.status];
+        } else {
+            imgUrlAddress = imgUrl2[data.isFinish];
+        }
+
+        let status = courseData.status || data.isFinish;
+
         return (
             <div className="attendCardContainer" style={{ border: '2px solid ' + oriColor[data.isFinish] }}>
                 <div className="top">
                     <span onClick={ onClick }>{ data.name }</span>
                     {
-                        (buttonText && courseData.status == 0) ?
+                        (buttonText && status == 0) ?
                         (
                             <button onClick={() => { buttonCallback(data.userId, data.id) }}>{ buttonText }</button>
                         ) : 
                         (
-                            <img src={ imgUrl[courseData.status] } alt="logo" width="50" height="50" />
+                            <img src={ imgUrlAddress } alt="logo" width="50" height="50" />
                         )
                     }
                 </div>
