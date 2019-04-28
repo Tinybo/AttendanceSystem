@@ -154,13 +154,13 @@ class Login extends Component {
                     type="text"
                     ref="account"
                     className="account"
-                    placeholder="学号 / 手机号"
+                    placeholder="手机号"
                     defaultValue={this.state.account}
                     onChange={this
                     .saveValue
                     .bind(this, 'account')}/>
                 <input
-                    type="text"
+                    type="password"
                     ref="password"
                     className="password"
                     placeholder="密码"

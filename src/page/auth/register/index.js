@@ -116,7 +116,7 @@ class Register extends Component {
                 const { phone, stu_name } = this.props.register;
                 if (phone) {
                     // 跳转至登录界面
-                    this.props.shiftPage('login');
+                    // this.props.shiftPage('login');
                     console.log('注册终于结束了。');
                 }
             }
@@ -138,8 +138,8 @@ class Register extends Component {
                     <Option value="4">学院领导</Option>
                 </Select>
                 <input type="text" ref="account" className="account" placeholder="手机号" defaultValue={ this.state.account } onChange={ this.saveValue.bind(this, 'account') } />
-                <input type="text" ref="password" className="password" placeholder="密码" defaultValue={ this.state.password } onChange={ this.saveValue.bind(this, 'password') } />
-                <input type="text" ref="rePassword" className="password" placeholder="确认密码" defaultValue={ this.state. rePassword } onChange={ this.saveValue.bind(this, 'rePassword') } />
+                <input type="password" ref="password" className="password" placeholder="密码" defaultValue={ this.state.password } onChange={ this.saveValue.bind(this, 'password') } />
+                <input type="password" ref="rePassword" className="password" placeholder="确认密码" defaultValue={ this.state. rePassword } onChange={ this.saveValue.bind(this, 'rePassword') } />
 
                 <button className="registerBtn" 
                     onClick={ this.register }
