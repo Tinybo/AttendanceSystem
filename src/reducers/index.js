@@ -16,6 +16,9 @@ import courseDetail from '../page/attendance/courseDetail/reducer';
 import studentInfo from '../components/studentInfo/reducer';
 import courseCard from '../components/courseCard/reducer';
 
+import web from '../page/web/reducer';
+import statistic from '../page/web/statistic/reducer';
+
 // 合并所有的reducer
 const rootReducer = combineReducers({
     login,
@@ -32,6 +35,8 @@ const rootReducer = combineReducers({
     courseDetail,
     studentInfo,
     courseCard,
+    web,
+    statistic,
     routing: routerReducer
 });
 

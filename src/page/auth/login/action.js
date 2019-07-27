@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import { host } from '../../../common/hosts';
 import { toast } from '../../../common/utils/toast';
+import { hashHistory } from 'react-router';
 
 export const LOGIN = "LOGIN";
 export const RESET_BTN = "RESET_BTN";
@@ -56,13 +57,26 @@ export function login (data) {
                         localStorage.setItem('qq', result.qq);
                     }
 
-                    dispatch({
-                        type: LOGIN,
-                        data: {
-                            ...result,
-                            isLoginFinish: true
-                        }
-                    });
+                    // 判断是否为管理员
+                    if (data.operation) {
+                        toast('success', '登录成功！');
+                        dispatch({
+                            type: LOGIN,
+                            data: {
+                                ...result,
+                                isLoginFinish: true,
+                                isAdmin: true
+                            }
+                        });
+                    } else {
+                        dispatch({
+                            type: LOGIN,
+                            data: {
+                                ...result,
+                                isLoginFinish: true
+                            }
+                        });
+                    }
                 } else {
                     dispatch({
                         type: LOGIN,

@@ -1,0 +1,15 @@
+@import '../../../common/colors.scss';
+
+.tableContainer {
+}
+
+.leaveDetail {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    font-weight: bold;
+
+    span {
+        margin: 5px 20px;
+    }
+}

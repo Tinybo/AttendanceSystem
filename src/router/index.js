@@ -2,6 +2,7 @@ import App from '../app';
 import Auth from '../page/auth';                // 登录注册页面
 import PerfectInfo from '../page/perfectInfo';  // 完善信息页面
 import Home from '../page/home';                // 主页
+import Web from '../page/web';                  // Web端主页
 import Leave from '../page/leave';              // 请假页面
 import LeaveDetail from '../page/leaveDetail';  // 请假条详情页
 import Attendance from '../page/attendance';
@@ -14,13 +15,14 @@ export const routes = [
     {
         path: '/',
         component: App,
-        indexRoute: { component: Home },
+        indexRoute: { component: Auth },
         childRoutes: [
             { path: '', component: Auth },
             { path: '/auth', component: Auth },
             { path: '/perfectInfo', component: PerfectInfo },
             { path: '/home', component: Home },
             { path: '/leave', component: Leave },
+            { path: '/web', components: Web },
             { path: '/leaveDetail', component: LeaveDetail },
             { 
                 path: '/attendance',

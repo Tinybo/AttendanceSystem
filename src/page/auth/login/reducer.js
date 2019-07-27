@@ -3,7 +3,8 @@ import { Object } from 'core-js';
 
 // home页的初始化数据
 const initData = {
-    isLoginFinish: false
+    isLoginFinish: false,
+    isAdmin: false
 }
 
 export default function login (state = initData, action) {

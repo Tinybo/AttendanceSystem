@@ -1,0 +1,21 @@
+@import '../../common/colors.scss';
+
+.webContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    header {
+        height: 55px;
+    }
+
+    .login, .statistic {
+        width: 100%;
+        height: 100%;
+    }
+
+    footer {
+        height: 55px;
+    }
+}

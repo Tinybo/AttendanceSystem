@@ -16,6 +16,8 @@ class Auth extends Component {
             loginOrRegister: 'login',
         }
     }
+    
+    
 
     /**
      * 渲染登录/注册界面。

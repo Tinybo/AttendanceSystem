@@ -1,0 +1,99 @@
+@import '../../../common/colors.scss';
+
+.webLoginContainer {
+    width: 100%;
+    height: 100%;
+    background-image: url('../../../common/images/backgroundLogin.png');
+    background-size: cover;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .card {
+        width: 340px;
+        height: 300px;
+        background: rgba(255, 255, 255, .7);
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 20px;
+
+        .label h2 {
+            color: $primary;
+            text-align: center;
+            margin-top: -10px;
+            margin-bottom: 20px;
+        }
+    }
+
+    .ant-select {
+        width: 88%;
+        margin-left: 6%;
+        margin-bottom: 34px;
+    }
+
+    .ant-select-selection--single {
+        height: 40px;
+        border-radius: 38px;
+        background: rgba(255, 255, 255, 0);
+        border: 2px solid $primary;
+        outline: none;
+    }
+
+    .ant-select-selection__rendered {
+        line-height: 40px; 
+        color: $primary; 
+        text-indent: 5px;
+    }
+
+    .ant-select-selection__placeholder {
+        color: $primary;
+    }
+
+    option {
+        color: red;
+    }
+
+    input {
+        width: 88%;
+        height: 40px;
+        margin-bottom: 34px;
+        margin-left: 6%;
+        border-radius: 38px;
+        outline: none;
+        color: $primary;
+        border: 2px solid $primary;
+        text-indent: 1em;
+        background: rgba(255, 255, 255, 0);
+    }
+
+    input::-webkit-input-placeholder {
+       color: $primary;
+    }
+
+    .loginBtn {
+        width: 88%;
+        height: 40px;
+        background: $primary;
+        color: white;
+        border-radius: 38px;
+        font-size: 16px;
+        font-weight: bold;
+        border: 2px solid $primary;
+        margin: 15px 6% 0;
+        outline: none;
+    }
+
+    .loginBtn:active {
+        background: $background;
+    }
+
+    span {
+        font-size: 15px;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 24px;
+    }
+}
